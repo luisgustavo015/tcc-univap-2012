@@ -1,0 +1,34 @@
+.menuV
+{
+	width:180px;
+	padding:0px;
+	margin:0px;
+	font:12px Verdana, sans-serif;
+	
+}
+.menuV ul
+{
+
+	display:block;
+	margin:0px;
+	padding:0px;
+}
+.menuV ul a
+{	
+	background-color:black;
+	display:block;
+	padding:3px 3px 3px 1em;
+	text-indent:20px;color: #ccc;
+	text-decoration: none;
+	border:1px solid #1a1a1a;
+	border-left:0px;
+	border-right:0px;
+}
+.menuV ul a:hover
+{
+	text-indent:30px;
+	color:#fff;
+	border:1px solid #9F0004;
+	border-left:0px;
+	border-right:0px;
+}

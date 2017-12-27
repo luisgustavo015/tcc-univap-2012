@@ -1,0 +1,115 @@
+<html>
+<head>
+<script type="text/javascript">
+var db = openDatabase('ESCOLA', '1.0', 'ESCOLA', 10 * 1024 * 1024);
+var msg;
+var codigo=0;
+
+// cria variável que é ponteiro para base de dados (db)
+db.transaction(function (tx) {
+  tx.executeSql('CREATE TABLE IF NOT EXISTS ALUNOS (id unique, nome)');
+  msg = '<p>Base de Dados Escola criada.</p>';
+  document.querySelector('#status').innerHTML =  msg;
+});
+
+
+//insere registros
+function insertRows(){
+	if (document.dados.nome.value!=""){
+		codigo++;
+		alert(codigo);
+		db.transaction(function (tx) {  
+		  tx.executeSql('INSERT INTO ALUNOS (id, nome) VALUES ('+codigo+', "'+document.dados.nome.value+'")');
+		  msg = '<p>Registro inserido.</p>';
+		  document.querySelector('#status').innerHTML =  msg;
+		});
+	}
+	else{
+		alert("Favor fornecer nome!");
+	}
+		
+}
+
+// apaga registros da tabela
+function dropRows(){
+	codigo=0;
+	alert(codigo);
+	db.transaction(function (tx) {  
+	  tx.executeSql('DELETE FROM ALUNOS');
+	  msg = '<p>RegistroS removidos.</p>';
+	  document.querySelector('#status').innerHTML =  msg;
+	});
+}
+
+// conta número de registros da tabela
+function counterRows(){
+	db.transaction(function (tx) {
+	  tx.executeSql('SELECT * FROM ALUNOS', [], function (tx, results) {
+	   codigo = results.rows.length, i;// obtém total de registros
+	 }, null);
+	});
+}
+
+// executa contador de registro, pois, para inserir deve ter um código único
+counterRows();
+
+// mostra informações cadastradas
+function display(){
+	db.transaction(function (tx) {
+	  tx.executeSql('SELECT * FROM ALUNOS', [], function (tx, results) {
+	   var len = results.rows.length, i;
+	   document.querySelector('#status').innerHTML="";//init de msg status
+	   msg = "<p>Registros encontrados: " + len + " total de registros: "+codigo+"</p>";
+	   document.querySelector('#status').innerHTML +=  msg;
+	   for (i = 0; i < len; i++){
+	     msg = "<p><b>" + results.rows.item(i).nome + "</b></p>";
+	     document.querySelector('#status').innerHTML +=  msg;
+	   }
+	 }, null);
+	});
+}
+
+
+// localizar
+function locate(){
+	db.transaction(function (tx) {
+	  tx.executeSql('SELECT * FROM ALUNOS WHERE NOME LIKE "'+document.dados.nome.value+'%"', [], function (tx, results) {
+	   var len = results.rows.length, i;
+	   document.querySelector('#status').innerHTML="";//init de msg status
+	   msg = "<p>Registros encontrados: " + len + " total de registros: "+codigo+"</p>";
+	   document.querySelector('#status').innerHTML +=  msg;
+	   for (i = 0; i < len; i++){
+	     msg = "<p><b>" + results.rows.item(i).nome + "</b></p>";
+	     document.querySelector('#status').innerHTML +=  msg;
+	   }
+	 }, null);
+	});
+}
+
+</script>
+
+</head>
+<body>
+<!-- formulário -->
+<form name="dados">
+	Entre com nome: <input type="text" name="nome" value="">
+	Localizar<input type="button" value="Mostrar Registros" onclick="locate();";>
+	<br>
+	<input type="button" value="Mostrar Registros" onclick="display();";>
+	<input type="button" value="Inserir Registros" onclick="insertRows();";>
+	<input type="button" value="Apagar Registros" onclick="dropRows();";>
+
+	<div id="status" name="status">Status Message</div>
+</form>
+</body>
+</html>
+
+ 
+
+ 
+
+ 
+
+<body></body>
+
+</html>

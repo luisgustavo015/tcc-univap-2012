@@ -1,0 +1,52 @@
+body
+{
+	background: url(Wallpaper/2.jpg)fixed no-repeat top left;
+	
+}
+.fundo_principal
+{
+	position:absolute;
+	width:900px;
+	height:1000px;
+	background-color:white;
+	margin-left:-450px;
+	left:50%;
+	top:0px;
+	-moz-box-shadow: 0 0 5px 5px #888;
+	-webkit-box-shadow: 0 0 5px 5px#888;
+	box-shadow: 0 0 5px 5px #888;
+}
+.topo
+{
+	position:absolute;
+	width:100%;
+	height:150px;
+	top:0px;
+	background-image:url(imagens/topo.png);
+}
+.rodape
+{
+	position:absolute;
+	width:100%;
+	height:200px;
+	top:100%;
+	background-image:url(imagens/rodape.jpg);
+	-moz-box-shadow: 0 0 5px 5px #888;
+	-webkit-box-shadow: 0 0 5px 5px #888;
+	box-shadow: 0 0 5px 5px #888;
+}
+.login
+	{
+		position:absolute;
+		width: 260px;
+		height: 120px;
+		background-color: white;
+		-moz-border-radius:20px;
+		-webkit-border-radius: 20px;
+		left:620px;
+		top:50%;
+		margin-top:-60px;
+		-moz-box-shadow: 0 0 5px 5px white;
+		-webkit-box-shadow: 0 0 5px 5px white;
+		box-shadow: 0 0 5px 5px white;
+	}
