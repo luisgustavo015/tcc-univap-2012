@@ -1,21 +1,30 @@
-<?
+<?php
 	if (!isset($_SESSION)) session_start();
 	
-	$conecta = mysql_connect("localhost", "root");
-	mysql_select_db("tcc", $conecta);
-
+	$mysqli = mysqli_connect('localhost', 'root', '', 'tcc');
+	
+	/* check connection */
+	if (!$mysqli) {
+		echo "Error: Unable to connect to MySQL." . PHP_EOL;
+		echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
+		echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
+		exit;
+	}
+	
 	
 	$campos_query = "*";  
     
-	
-	$final_query  = "FROM noticia ";
 	  
-   // Declaração da pagina inicial  
-	$pagina = $_GET["pagina"];  
-	if($pagina == "") 
+	// DeclaraÃ§Ã£o da pagina inicial   
+	if(!$_GET) 
 	{  
-		$pagina = "1";  
-	} 
+		$pagina = 1;  
+	}else{
+		if($_GET['pagina']){
+			$pagina = $_GET["pagina"];
+		}
+	}
+	
 
 	// Maximo de registros por pagina  
 	$maximo = 4;
@@ -25,27 +34,33 @@
 	$inicio = $maximo * $inicio;
 
 	// Conta os resultados no total da minha query  
-	$strCount = "SELECT COUNT(*) AS 'num_registros' $final_query";  
-	$query    = mysql_query($strCount);  
-	$row      = mysql_fetch_array($query);  
-	$total    = $row["num_registros"];
-			
+	$query = "SELECT * FROM noticia";  
+
+	
+	$result	= mysqli_query($mysqli, $query);
+	
+	
+	$total = mysqli_num_rows($result);
+
 ?>
 
 
 
 <html>
 <head>
-	<title> Página Inicial </title>
-	<link rel="stylesheet" type="text/css" href="fundo_tudo.css">
-	<link rel="stylesheet" type="text/css" href="menu_horizontal.css">
-<link rel="stylesheet" href="style.css" type="text/css" media="screen" />
-
-	 <link rel="stylesheet" href="themes/default/default.css" type="text/css" media="screen" />
+	<meta charset="UTF-8">
+	<title> PÃ¡gina Inicial </title>
+	<link rel="stylesheet" href="fundo_tudo.css" type="text/css"/>
+	<link rel="stylesheet" href="menu_horizontal.css" type="text/css"/>
+	<link rel="stylesheet" href="style.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="themes/default/default.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="themes/light/light.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="themes/dark/dark.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="themes/bar/bar.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="nivo-slider.css" type="text/css" media="screen" />
+    
+	<script src="scripts/jquery-1.7.1.min.js"></script>
+    <script src="jquery.nivo.slider.js"></script>
     
 	
 
@@ -74,6 +89,10 @@
 	</style>
 	
 	<script>
+		$(window).load(function() {
+			$('#slider').nivoSlider();
+		});
+	
 		function formatar(mascara, documento)
 		{
 			var i = documento.value.length;
@@ -86,9 +105,6 @@
 			}
   
 		}
-	</script>
-	
-	<script type="text/javascript">
 	
 		var theInt = null;
 		var $crosslink, $navthumb;
@@ -139,136 +155,110 @@
 <body bgcolor="black">
 	<div class="fundo_principal" style="position:absolute;height:1680px;-moz-box-shadow: 0 0 5px 5px #888;-webkit-box-shadow: 0 0 5px 5px#888;box-shadow: 0 0 5px 5px #888;">
 		
-		<div class="topo">
-			
-			
-		</div>
-			
-			<div style="position:absolute;top:150px; background-color:black; width:100%; height:30px; -webkit-border-radius: 0 0 0 0 px; -moz-border-radius: 0 0 0 0 px;">
-				<?
+		
+		<div class="topo"></div>
+		
+		<div style="position:absolute;top:150px; background-color:black; width:100%; height:30px; -webkit-border-radius: 0 0 0 0 px; -moz-border-radius: 0 0 0 0 px;">
+			<?php
 				if(!isset($_SESSION['UsuarioID']))
 				{
-					?>
-						<center>
-						<table border="0">
-							<tr >
-							<td style="width:200px;" align="left" >
-								<a href="alterarInfo.php"><font color="white" face="arial">Sua Conta</font></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							</td >
-							<td style="width:200px;" align="left"> 
-								<a href="carrinho.php?pagina=1"><font color="white" face="arial">Carrinho</font></a>
-							</td>
-							<td style="width:200px;">
-								<font color="white" face="arial">Seja bem vindo(a), <a href="login.php" style="text-decoration: underline;"><font color="white" face="arial">Entrar</font></a></font>
-							</td>
-							</tr>
-						</table>
-						</center>
-					<?
+					echo '<center>';
+						echo '<table border="0">';	
+							echo '<tr>';	
+								echo '<td style="width:200px;" align="left" >';	
+									echo '<a href="alterarInfo.php"><font color="white" face="arial">Sua Conta</font></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';	
+								echo '</td >';	
+								echo '<td style="width:200px;" align="left"> ';	
+									echo '<a href="carrinho.php?pagina=1"><font color="white" face="arial">Carrinho</font></a>';	
+								echo '</td>';	
+								echo '<td style="width:200px;">';	
+									echo '<font color="white" face="arial">Seja bem vindo(a), <a href="login.php" style="text-decoration: underline;"><font color="white" face="arial">Entrar</font></a></font>';	
+								echo '</td>';	
+							echo '</tr>';	
+						echo '</table>';	
+					echo '</center>';		
 				}
 				else
 				{
-					?>
-						<center>
-						<table border="0">
-							<tr >
-							<td style="width:200px;" align="left" >
-								<a href="alterarInfo.php"><font color="white" face="arial">Sua Conta</font></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							</td >
-							<td style="width:200px;" align="left"> 
-								<a href="carrinho.php?pagina=1"><font color="white" face="arial">Carrinho</font></a>
-							</td>
-							<td style="width:200px;">
-								<font color="white" face="arial">Seja bem vindo(a), <?print $_SESSION['UsuarioNome']?></a></font>
-							</td>
-							</tr>
-						</table>
-						</center>
-					<?
+					echo '<center>';
+						echo '<table border="0">';
+							echo '<tr >';
+								echo '<td style="width:200px;" align="left" >';
+									echo '<a href="alterarInfo.php"><font color="white" face="arial">Sua Conta</font></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+								echo '</td >';
+								echo '<td style="width:200px;" align="left"> ';
+									echo '<a href="carrinho.php?pagina=1"><font color="white" face="arial">Carrinho</font></a>';
+								echo '</td>';
+								echo '<td style="width:200px;">';
+									echo '<font color="white" face="arial">Seja bem vindo(a), <?print $_SESSION["UsuarioNome"]?></a></font>';
+								echo '</td>';
+							echo '</tr>';
+						echo '</table>';
+					echo '</center>';
 				}
 			?>
-			</div>
+		</div>
 			
 			
 		<ul id="menu">
-	<li>
-	<a href="index.php?pagina=1" title="Home Page">Página Inicial</a>
-	</li>
-	<li>
-	<a href="centralUsuario.php" title="Área do cliente">Espaço do cliente</a>
-	</li>
-	<?
-		if(!isset($_SESSION['UsuarioID']))
-		{
-	?>
-	<li>
-	<a href="form_cadastro.php" title="Cadastre-se">Cadastro</a>
-	</li>
-	<?
-		}
-	?>
-	<li>
-	<a href="produtos.php" title="Produtos para compra"> Produtos </a>
-	</li>
-	<li>
-	<a href="contato.php" title="Fale conosco">Contato</a>
-	</li>
-	</ul>
+			<li>
+			<a href="index.php?pagina=1" title="Home Page">PÃ¡gina Inicial</a>
+			</li>
+			<li>
+			<a href="centralUsuario.php" title="Ãrea do cliente">EspaÃ§o do cliente</a>
+			</li>
+			<?php
+				if(!isset($_SESSION['UsuarioID']))
+				{
+					echo '<li>';
+						echo '<a href="form_cadastro.php" title="Cadastre-se">Cadastro</a>';
+					echo '</li>';
+				}
+			?>
+			<li>
+			<a href="produtos.php" title="Produtos para compra"> Produtos </a>
+			</li>
+			<li>
+			<a href="contato.php" title="Fale conosco">Contato</a>
+			</li>
+		</ul>
+		
 		<br><br><br><br><br><br>
 			
-	<div id="wrapper">
-        
-        <div class="slider-wrapper theme-default">
-            <div id="slider" class="nivoSlider">
-				<?
-					
-					$strQuery = "SELECT $campos_query $final_query ORDER BY cod_noticia DESC LIMIT $inicio,$maximo";  
-					$query    = mysql_query($strQuery);
-				
-					$LoopSlide = 10;
-					$i = 1;
-					
-					$slide = "SELECT * FROM noticia ORDER BY cod_noticia DESC LIMIT 10";
-					$r = mysql_query($slide);
-					
-					while($list = mysql_fetch_array($r))
-					{
-						$noticia = mysql_fetch_array($query);
+		<div id="wrapper">        
+			<div class="slider-wrapper theme-default">
+				<div id="slider" class="nivoSlider">
+					<?php
+											
+						$slide = "SELECT * FROM noticia ORDER BY cod_noticia DESC LIMIT 10";
+						$r = mysqli_query($mysqli, $slide);
 						
-						if ($i <= 10)
+						while($list = mysqli_fetch_array($r, MYSQLI_BOTH))
 						{
-							echo ' <a href="noticia.php?cod_produto='.$noticia['cod_produto'].'&cod_noticia='.$noticia['cod_noticia'].'"><img src="'.$list['imagem'].'" alt="" title="'.$list['titulo'].'" ></a>';
+							echo "<a href=\"noticia.php?cod_produto=".$list['cod_produto']."&cod_noticia=".$list['cod_noticia']."\"><img src=\"".$list["imagem"]."\" alt=\"\" title=\"".$list['titulo']."\" ></a>";
 						}
-						$i++;
-					}
-				?>
-               
-            </div>
-			
-        </div>
-
-    </div>
-    <script type="text/javascript" src="scripts/jquery-1.7.1.min.js"></script>
-    <script type="text/javascript" src="jquery.nivo.slider.js"></script>
-    <script type="text/javascript">
-    $(window).load(function() {
-        $('#slider').nivoSlider();
-    });
-    </script>
+					?>
+				   
+				</div>			
+			</div>
+		</div>
+	
+	
+    
 			
 		
 		<div style=" top:730px; position:absolute; background-color:black; height:auto; width:700px; left:50%; margin-left:-350px; -moz-box-shadow: 0 0 5px 5px #888; -webkit-box-shadow: 0 0 5px 5px#888; box-shadow: 0 0 5px 5px #888; -moz-border-radius:20px; -webkit-border-radius: 20px; height:auto;">
 		<center>
 			<div style="background-image:url(imagens/rodape.jpg);-webkit-border-radius: 20 20 0 0px; -moz-border-radius: 20 20 0 0px; width:100%; height:80px; ">
-				<br><font color="DarkOrange1" face="Georgia" size="5"><b>Últimas Notícias</b></font>
+				<br><font color="DarkOrange1" face="Georgia" size="5"><b>Ãšltimas NotÃ­cias</b></font>
 			</div>
 		
 		
-		<?
-			$strQuery = "SELECT $campos_query $final_query LIMIT $inicio,$maximo";  
-			$query    = mysql_query($strQuery);
+			<?php
+			$strQuery = "SELECT * FROM noticia LIMIT $inicio,$maximo";  
+			$str = mysqli_query($mysqli, $strQuery);
 			
-			while ($noticia = mysql_fetch_array($query))
+			while($noticia = mysqli_fetch_array($str, MYSQLI_BOTH))
 			{
 				$cod_produto = $noticia['cod_produto'];
 				
@@ -278,7 +268,7 @@
 				print '<a href="noticia.php?cod_produto='.$cod_produto.'&cod_noticia='.$noticia['cod_noticia'].'" style="a:hover{color:orange;} font-decoration:none;"><div style="height:120px; width:120px; background-color: white;"><img src="'.$noticia['imagem'].'" style="width:100%; height:100%; border:3px solid white;"></div></font>';
 				print '</td>';
 				print '<td style="width:300px;">'; 
-				print '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="noticia.php?cod_produto='.$cod_produto.'&cod_noticia='.$noticia['cod_noticia'].'"><font color="black" >'.$noticia['titulo'].'</font></a>';
+				print '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="noticia.php?cod_produto='.$cod_produto.'&cod_noticia='.$noticia['cod_noticia'].'"><font color="white" >'.$noticia['titulo'].'</font></a>';
 				print '</td>';
 				print '</tr><br><br>';
 				print '</table>';
@@ -316,7 +306,7 @@
 								echo "   <a href=\"?pagina=$mais\" class='texto_paginacao'><font color=\"white\">próxima</a>";  
 							}  
 						}  
-		?>
+			?>
 		<br><br>
 		</center>
 		</div>
@@ -342,3 +332,6 @@
 	</div>
 </body>
 </html>
+<?php
+	mysqli_close($mysqli);
+?>
