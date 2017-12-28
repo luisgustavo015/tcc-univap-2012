@@ -23,11 +23,11 @@
 	
 		$codCliente = $_SESSION['UsuarioID'];
 		$codAmigo = $_GET['cod_amigo'];	
-		$conecta = mysql_connect("localhost", "root");
-		mysql_select_db("tcc", $conecta);
+		$mysqli = mysqli_connect('localhost', 'root', '', 'tcc');
+		
 		
 		$sql = "SELECT * FROM mensagem WHERE (cod_cliente = '$codCliente') AND (cod_amigo = '$codAmigo')";
-		$query = mysql_query($sql) or print mysql_error();
+		$query = mysqli_query($mysqli, $sql);
 		
 ?>
 	
@@ -78,7 +78,7 @@
 		
 		<div class="topo">
 			<div class="login">
-			<?
+			<?php
 				if(!isset($_SESSION['UsuarioID']))
 				{
 			?>
@@ -89,17 +89,17 @@
 					<input type="submit" value="logar">
 				</center>
 				</form>
-			<?
+			<?php
 				}
 				else
 				{
 			?>
 				<center><br><br>
-				Bem vindo, <? print $_SESSION['UsuarioNome']; ?><br><br>
+				Bem vindo, <?php print $_SESSION['UsuarioNome']; ?><br><br>
 				<a href="logout.php">Logout</a><br><br>
 				<a href="alterarInfo.php">Editar Contar</a>
 				</center>
-			<?
+			<?php
 				}
 			?>
 			</div>
@@ -148,7 +148,7 @@
 			<table border="0">
 			<tr>
 				<td><img src="images/recado.jpg" style="-moz-border-radius:10px;-webkit-border-radius: 10px;-moz-box-shadow: 0 0 5px 5px white;-webkit-box-shadow: 0 0 5px 5px white;box-shadow: 0 0 5px 5px white; width:120px; height:140px;"></td>
-				<?
+				<?php
 					if ($query == 0)
 					{
 					
@@ -158,7 +158,7 @@
 						Nenhuma mensagem.
 					</font>
 					</td>
-				<?
+				<?php
 					}
 					else
 					{

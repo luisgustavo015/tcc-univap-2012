@@ -22,13 +22,13 @@
 		
 		$cod_cliente = $_SESSION['UsuarioID'];
 		
-		$conecta = mysql_connect("localhost", "root");
-		mysql_select_db("tcc", $conecta);
+		$mysqli = mysqli_connect('localhost', 'root', '', 'tcc');
+		
 		
 		$sql = "SELECT * FROM cliente WHERE cod_cliente = '$cod_cliente'";
-		$query = mysql_query($sql);
+		$query = mysqli_query($mysqli, $sql);
 		
-		$resultado = mysql_fetch_array($query);
+		$resultado = mysqli_fetch_array($query, MYSQLI_BOTH);
 
 ?>
 	
@@ -104,7 +104,7 @@
 		
 		<div class="topo">
 			<div class="login">
-			<?
+			<?php
 				if(!isset($_SESSION['UsuarioID']))
 				{
 			?>
@@ -115,17 +115,17 @@
 					<input type="submit" value="logar">
 				</center>
 				</form>
-			<?
+			<?php
 				}
 				else
 				{
 			?>
 				<center><br><br>
-				Bem vindo, <? print $_SESSION['UsuarioNome']; ?><br>
+				Bem vindo, <?php print $_SESSION['UsuarioNome']; ?><br>
 				<a href="logout.php">Logout</a><br>
 				<a href="alterarInfo.php">Editar Conta</a>
 				</center>
-			<?
+			<?php
 				}
 			?>
 			</div>
@@ -166,7 +166,7 @@
 			<center>
 			<br><br>
 			
-			<?
+			<?php
 			print '<table border="0" style="border-collapse: collapse;">';
 			print '<tr style="height:120px;">';
 			print '<td style="border:0px;"><div style="height:120px;width:100px;background-color:white;"><img src="'.$resultado['foto'].'" style="width:100%;height:100%;"></div></td>';
@@ -187,8 +187,8 @@
 			<fieldset style="-moz-border-radius:20px; -webkit-border-radius: 20px; width:600;">
 				<b>Area 1:</b> Aqui você encontrará informações de seus amigos, seus jogos e etc.<br>
 				<hr>
-				<?print '<b><a href="procuraAmigos.php?pagina=1"><font color="white" face="Berlin Sans FB">Procurar Novos Amigos</font></a></b><br><br>'?>
-				<?print '<b><a href="paginaAmigos.php?pagina=1"><font color="white" face="Berlin Sans FB">Amigos</font></a></b><br><br>' ?>
+				<?php print '<b><a href="procuraAmigos.php?pagina=1"><font color="white" face="Berlin Sans FB">Procurar Novos Amigos</font></a></b><br><br>'?>
+				<?php print '<b><a href="paginaAmigos.php?pagina=1"><font color="white" face="Berlin Sans FB">Amigos</font></a></b><br><br>' ?>
 			</fieldset>
 			<br><br>
 			<fieldset style="-moz-border-radius:20px; -webkit-border-radius: 20px; width:600;">

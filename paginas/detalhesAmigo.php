@@ -23,12 +23,12 @@
 		
 		$tipo = $_GET['tipo'];
 		$codAmigo = $_GET['codAmigo'];	
-		$conecta = mysql_connect("localhost", "root");
-		mysql_select_db("tcc", $conecta);
+		$mysqli = mysqli_connect('localhost', 'root', '', 'tcc');
+		
 		
 		$sqlBuscaCliente = "SELECT * FROM cliente WHERE cod_cliente = '$codAmigo'";
-		$execBuscaCliente = mysql_query($sqlBuscaCliente) or print mysql_error();
-		$cliente = mysql_fetch_array($execBuscaCliente);
+		$execBuscaCliente = mysqli_query($mysqli, $sqlBuscaCliente);
+		$cliente = mysqli_fetch_array($execBuscaCliente, MYSQLI_BOTH);
 ?>
 	
 	
@@ -78,7 +78,7 @@
 		
 		<div class="topo">
 			<div class="login">
-			<?
+			<?php
 				if(!isset($_SESSION['UsuarioID']))
 				{
 			?>
@@ -89,7 +89,7 @@
 					<input type="submit" value="logar">
 				</center>
 				</form>
-			<?
+			<?php
 				}
 				else
 				{
@@ -99,7 +99,7 @@
 				<a href="logout.php">Logout</a><br><br>
 				<a href="alterarInfo.php">Editar Contar</a>
 				</center>
-			<?
+			<?php
 				}
 			?>
 			</div>
@@ -150,33 +150,33 @@
 				<b>Informações do Usuário</b> <br>
 				<hr><br>
 				<form name="amigo" method="POST" action="addAmigo.php">
-					<div style="width:256px;height:256px;background-color:white;"><img src="<?print $cliente['foto'];?>" style="width:100%;height:100%;-moz-box-shadow: 0 0 5px 5px white;-webkit-box-shadow: 0 0 5px 5px white;box-shadow: 0 0 5px 5px white;"></div>
+					<div style="width:256px;height:256px;background-color:white;"><img src="<?php print $cliente['foto'];?>" style="width:100%;height:100%;-moz-box-shadow: 0 0 5px 5px white;-webkit-box-shadow: 0 0 5px 5px white;box-shadow: 0 0 5px 5px white;"></div>
 						<table border="0">
 							<tr>
 								<td style="width:200px;">
-									<font color="white"><br>Nome: <? print $cliente['nome'];?><br><br>
-									Sexo: <? print $cliente['sexo'];?><br><br></font>
+									<font color="white"><br>Nome: <?php print $cliente['nome'];?><br><br>
+									Sexo: <?php print $cliente['sexo'];?><br><br></font>
 								</td>
 								<td>
-									<? print '<a href="paginaMensagens.php?cod_amigo='.$codAmigo.'" style="text-decoration:none;"><font color="white">Mensagens >></font></a>'?><br><br><br>
+									<?php print '<a href="paginaMensagens.php?cod_amigo='.$codAmigo.'" style="text-decoration:none;"><font color="white">Mensagens >></font></a>'?><br><br><br>
 								</td>
 							<tr>
 						</table>	
-						<input type="hidden" name="cod_amigo" value="<?print $codAmigo;?>">
+						<input type="hidden" name="cod_amigo" value="<?php print $codAmigo;?>">
 						
 						
-						<? 
+						<?php 
 							if ($tipo != 2)
 							{
 								?>
 									<input type="submit" value="Adicionar Amigo">
-								<?
+								<?php
 							}
 						?>
 				</form>
 			</fieldset>
 			<br>
-			<? 
+			<?php 
 				if ($tipo == 2)
 				{
 					print '<a href="paginaAmigos.php?pagina=1"><input type="button" value="Voltar"></a>';

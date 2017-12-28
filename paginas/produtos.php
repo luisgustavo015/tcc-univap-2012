@@ -1,16 +1,32 @@
-<?
+<?php
 	if (!isset($_SESSION)) session_start();
 	
-	include 'conexao.php';
+	$mysqli = mysqli_connect('localhost', 'root', '', 'tcc');
+	
+	/* check connection */
+	if (!$mysqli) {
+		echo "Error: Unable to connect to MySQL." . PHP_EOL;
+		echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
+		echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
+		exit;
+	}
+	
 ?>
 <html>
 <head>
+	<meta charset="UTF-8">
 	<title> Produtos </title>
+	<link rel="stylesheet" href="style.css" type="text/css" media="screen" />
 	<link rel="stylesheet" type="text/css" href="fundo_tudo.css">
 	<link rel="stylesheet" type="text/css" href="menu_horizontal.css">
+	
 
 
 	<style type="text/css">
+		body
+		{
+			background: url(Wallpaper/2.jpg)fixed no-repeat top left;
+		}
 		.fundo_produtos
 		{
 			position:absolute;
@@ -29,118 +45,148 @@
 
 
 </head>
-<body>
+<body bgcolor="black">
 
-	<body bgcolor="black">
 	<div class="fundo_principal" style="position:absolute;height:1300px;">
-	<div class="topo"></div>
+		
+		<div class="topo"></div>
+		
+		<div style="position:absolute;top:150px; background-color:black; width:100%; height:30px; -webkit-border-radius: 0 0 0 0 px; -moz-border-radius: 0 0 0 0 px;">
+			<?php
+				if(!isset($_SESSION['UsuarioID']))
+				{
+					echo '<center>';
+						echo '<table border="0">';	
+							echo '<tr>';	
+								echo '<td style="width:200px;" align="left" >';	
+									echo '<a href="alterarInfo.php"><font color="white" face="arial">Sua Conta</font></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';	
+								echo '</td >';	
+								echo '<td style="width:200px;" align="left"> ';	
+									echo '<a href="carrinho.php?pagina=1"><font color="white" face="arial">Carrinho</font></a>';	
+								echo '</td>';	
+								echo '<td style="width:200px;">';	
+									echo '<font color="white" face="arial">Seja bem vindo(a), <a href="login.php" style="text-decoration: underline;"><font color="white" face="arial">Entrar</font></a></font>';	
+								echo '</td>';	
+							echo '</tr>';	
+						echo '</table>';	
+					echo '</center>';		
+				}
+				else
+				{
+					echo '<center>';
+						echo '<table border="0">';
+							echo '<tr >';
+								echo '<td style="width:200px;" align="left" >';
+									echo '<a href="alterarInfo.php"><font color="white" face="arial">Sua Conta</font></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+								echo '</td >';
+								echo '<td style="width:200px;" align="left"> ';
+									echo '<a href="carrinho.php?pagina=1"><font color="white" face="arial">Carrinho</font></a>';
+								echo '</td>';
+								echo '<td style="width:200px;">';
+									echo '<font color="white" face="arial">Seja bem vindo(a), '.$_SESSION["UsuarioNome"].'</a></font>';
+								echo '</td>';
+							echo '</tr>';
+						echo '</table>';
+					echo '</center>';
+				}
+			?>
+		</div>
 	
-<?php
+		<?php
 
-  $nome = $_POST['nome'];
-  $precoI = @$_POST['de'];
-  $precoF = @$_POST['ate'];
-  $conecta = mysql_connect("localhost", "root") or print mysql_error();
-  mysql_select_db("tcc", $conecta) or print mysql_error();
-  
-    $LoopH = 3;
-	$i = 1;
-	
-    $campos_query = "*";  
-  
-    $nome == '';
-	$final_query = '';
-	if($nome == '')
-	{
-  
-		$final_query  = "FROM produtos WHERE estoque > 0 ";
-	}
-	else 
-	{
+			$nome = $_POST['nome'];
+			$precoI = @$_POST['de'];
+			$precoF = @$_POST['ate'];
+		  
+			$LoopH = 3;
+			$i = 1;
+			
+			$campos_query = "*";  
+		  
+			$nome == '';
+			$final_query = '';
+			if($nome == '')
+			{
+		  
+				$final_query  = "FROM produtos WHERE estoque > 0 ";
+			}
+			else 
+			{
 
-		$final_query  = "FROM produtos WHERE nome like '$nome%' AND preco_v between $precoI and $precoF AND estoque > 0 ";
-	}
-  
-	
-  
-  // DeclaraÁ„o da pagina inicial  
-	$pagina = $_GET["pagina"];  
-	if($pagina == "") 
-	{  
-		$pagina = "1";  
-	} 
+				$final_query  = "FROM produtos WHERE nome like '$nome%' AND preco_v between $precoI and $precoF AND estoque > 0 ";
+			}		
+		  
+			// Declara√ß√£o da pagina inicial   
+			if(!$_GET){  
+				$pagina = 1;  
+			}else{
+				if($_GET['pagina']){
+					$pagina = $_GET["pagina"];
+				}
+			}
 
-	// Maximo de registros por pagina  
-	$maximo = 9;
+			// Maximo de registros por pagina  
+			$maximo = 9;
 
-	// Calculando o registro inicial  
-	$inicio = $pagina - 1;  
-	$inicio = $maximo * $inicio;
+			// Calculando o registro inicial  
+			$inicio = $pagina - 1;  
+			$inicio = $maximo * $inicio;
 
-	// Conta os resultados no total da minha query  
-	$strCount = "SELECT COUNT(*) AS 'num_registros' $final_query";  
-	$query    = mysql_query($strCount); 
-	$row      = mysql_fetch_array($query);  
-	$total    = $row["num_registros"];
-	
-?>
+			// Conta os resultados no total da minha query  
+			$strCount = "SELECT COUNT(*) AS 'num_registros' $final_query";  
+			
+			$r = mysqli_query($mysqli, $strCount);	
+			$row  =  mysqli_fetch_array($r, MYSQLI_BOTH); 
+			
+			
+			$total = mysqli_num_rows($r);
+			
+		?>
 
 		
 
-	<ul id="menu" style>
-	<li>
-	<a href="index.php?pagina=1" title="Home Page">P·gina Inicial</a>
-	</li>
-	<li>
-	<a href="centralUsuario.php" title="¡rea do cliente">EspaÁo do cliente</a>
-	</li>
-	<li>
-	<a href="form_cadastro.php" title="Cadastre-se">Cadastro</a>
-	</li>
-	<li>
-	<a href="login.php" title="Entrar">Login</a>
-	</li>
-	<li>
-	<a href="produtos.php" title="Produtos para compra"> Produtos </a>
-	</li>
-	<li>
-	<a href="contato.php" title="Fale conosco">Contato</a>
-	</li>
-	<li>
-	<a href="carrinho.php">Carrinho</a>
-	</li>
-	</ul>
+		<ul id="menu">
+			<li><a href="index.php" title="Home Page">P√°gina Inicial</a></li>
+			<li><a href="centralUsuario.php" title="√Årea do cliente">Espa√ßo do cliente</a></li>
+			<?php if(!isset($_SESSION['UsuarioID'])) echo '<li><a href="form_cadastro.php" title="Cadastre-se">Cadastro</a></li>'; ?>
+			<li><a href="dicas.html" title="Dicas para iniciantes">Dicas</a></li>
+			<li><a href="produtos.php" title="Produtos para compra"> Produtos </a></li>
+			<li><a href="contato.php" title="Fale conosco">Contato</a></li>
+			<li><a href="carrinho.php">Carrinho</a></li>
+		</ul>
 
 
      
-     <br><br><br><br><br><br><br><br>
-     <?
+     <br><br><br><br><br><br><br>
+     <?php
 
        if($total == 0) 
 	   {
          ?>
 			<div class="fundo_produtos">
-           <center><b>Produto(s) n„o encontrado(s), tente novamente.</b>
+           <center><b>Produto(s) n√£o encontrado(s), tente novamente.</b>
            </center>
 		   </div>
-         <?
+         <?php
        }
        else {
 	   
 			$strQuery = "SELECT $campos_query $final_query LIMIT $inicio,$maximo";  
-			$query    = mysql_query($strQuery);
+			
+			$query = mysqli_query($mysqli, $strQuery);	
+			
 
          ?>
            <div class="fundo_produtos">
 		   <br><center>
-		   <font color="white" face="arial" size="8">Loja de Produtos</font>
+		   <font color="white" face="arial" style="font-size: 3em;">Loja de Produtos</font>
 		   <br>
             <center>
             <table border="0" cellpadding="8" cellspacing="10" width="100%">
             <tr>
-              <?
+              <?php
 
-                while($row = mysql_fetch_array($query)) 
+                while($row  =  mysqli_fetch_array($query, MYSQLI_BOTH)) 
 				{
 					if( $i < $LoopH)
 					{
@@ -185,42 +231,40 @@
 			
 			
 			<center>
-         <?
+         <?php
 			
 			// Calculando pagina anterior  
-						
-						
-						$menos = $pagina - 1;  
+			$menos = $pagina - 1;  
 
-						// Calculando pagina posterior  
-						$mais = $pagina + 1;
+			// Calculando pagina posterior  
+			$mais = $pagina + 1;
 
-						$pgs = ceil($total / $maximo);  
-					
-						if($pgs > 1 ) 
-						{  
-							// Mostragem de pagina  
-							if($menos > 0) 
-							{  
-								echo "<a href=\"?pagina=$menos&\" class='texto_paginacao'><font color=\"white\">anterior</a> ";  
-							}  
-							// Listando as paginas  
-							for($i=1;$i <= $pgs;$i++) 
-							{  
-								if($i != $pagina) 
-								{  
-									echo "  <a href=\"?pagina=".($i)."\" class='texto_paginacao'><font color=\"white\">$i</a>";  
-								} 
-								else 
-								{  
-									echo "  <strong class='texto_paginacao_pgatual'><font color=\"white\">".$i."</strong>";  
-								}  
-							}  
-							if($mais <= $pgs)
-							{  
-								echo "   <a href=\"?pagina=$mais\" class='texto_paginacao'><font color=\"white\">prÛxima</a>";  
-							}  
-						}  
+			$pgs = ceil($total / $maximo);  
+		
+			if($pgs >= 1 ) 
+			{  
+				// Mostragem de pagina  
+				if($menos > 0) 
+				{  
+					echo "<a href='?pagina=".$menos."' class='texto_paginacao'><font color=\"white\">anterior</a> ";  
+				}  
+				// Listando as paginas  
+				for($i=1;$i <= $pgs;$i++) 
+				{  
+					if($i != $pagina) 
+					{  
+						echo "  <a href='?pagina=".($i)."' class='texto_paginacao'><font color=\"white\">".$i."</a>";  
+					} 
+					else 
+					{  
+						echo "  <strong class='texto_paginacao_pgatual'><font color=\"white\">".$i."</strong>";  
+					}  
+				}  
+				if($mais <= $pgs)
+				{  
+					echo "   <a href='?pagina=".$mais."' class='texto_paginacao'><font color=\"white\">pr√≥xima</a>";  
+				}  
+			}  
 			
        }
      ?>

@@ -15,33 +15,19 @@
 	}
 
 	
-	$conecta = mysql_connect("localhost", "root") or print mysql_error();
-	mysql_select_db("tcc", $conecta) or print mysql_error();
+	$mysqli = mysqli_connect('localhost', 'root', '', 'tcc');
 	
 	$campos_query = "*";  
 	
-  
-	$nome == '';
-	$final_query = '';
-	if($nome == '')
-	{
-  
-		$final_query  = "FROM cliente ";
+	
+	// Declaração da pagina inicial   
+	if(!$_GET){  
+		$pagina = 1;  
+	}else{
+		if($_GET['pagina']){
+			$pagina = $_GET["pagina"];
+		}
 	}
-	else 
-	{
-
-		$final_query  = "FROM cliente ";
-	}
-	
-	
-	
-	// Declaração da pagina inicial  
-	$pagina = $_GET["pagina"];  
-	if($pagina == "") 
-	{  
-		$pagina = "1";  
-	} 
 
 	// Maximo de registros por pagina  
 	$maximo = 5;
@@ -51,10 +37,12 @@
 	$inicio = $maximo * $inicio;
 
 	// Conta os resultados no total da minha query  
-	$strCount = "SELECT COUNT(*) AS 'num_registros' $final_query";  
-	$query    = mysql_query($strCount);  
-	$row      = mysql_fetch_array($query);  
-	$total    = $row["num_registros"];
+	$strCount = "SELECT COUNT(*) AS 'num_registros' FROM cliente";  
+	
+	
+	$query    = mysqli_query($mysqli, $strCount);
+	 
+	$total    = mysqli_num_rows($query);
 				
   
 ?>
@@ -145,12 +133,12 @@
 						?>
 							<center><b>Cliente(s) não encontrado(s), tente novamente.</b>
 							</center>
-						<?
+						<?php
 					}
 					else
 					{
-						$strQuery = "SELECT $campos_query $final_query LIMIT $inicio,$maximo";  
-						$query    = mysql_query($strQuery);
+						$strQuery = "SELECT $campos_query FROM cliente LIMIT $inicio,$maximo";  
+						$query    = mysqli_query($mysqli, $strQuery);
 						
 						?>
 							<center>
@@ -165,7 +153,7 @@
 							
 							<?php
 
-						while($row = mysql_fetch_array($query)) 
+						while($row = mysqli_fetch_array($query, MYSQLI_BOTH)) 
 						{  
 							print '<tr>';
 							print '<td> <font color="white" face="Berlin Sans FB">'.$row['nome'].'</font></td>';

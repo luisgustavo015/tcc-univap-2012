@@ -31,8 +31,8 @@
 		}
 		
 		
-		$conecta = mysql_connect("localhost", "root") or print mysql_error();
-		mysql_select_db("tcc", $conecta) or print mysql_error();
+		$mysqli = mysqli_connect('localhost', 'root', '', 'tcc');
+		
 		
 		$campos_query = "*";  
 	
@@ -67,9 +67,12 @@
 
 	// Conta os resultados no total da minha query  
 	$strCount = "SELECT COUNT(*) AS 'num_registros' $final_query";  
-	$query    = mysql_query($strCount);  
-	$row      = mysql_fetch_array($query);  
-	$total    = $row["num_registros"];
+	
+	
+	$query    = mysqli_query($mysqli, $strCount);
+	
+	
+	$total    = mysqli_num_rows($query);
 
 ?>
 	
@@ -120,7 +123,7 @@
 		
 		<div class="topo">
 			<div class="login">
-			<?
+			<?php
 				if(!isset($_SESSION['UsuarioID']))
 				{
 			?>
@@ -131,7 +134,7 @@
 					<input type="submit" value="logar">
 				</center>
 				</form>
-			<?
+			<?php
 				}
 				else
 				{
@@ -141,7 +144,7 @@
 				<a href="logout.php">Logout</a><br>
 				<a href="alterarInfo.php">Editar Contar</a>
 				</center>
-			<?
+			<?php
 				}
 			?>
 			</div>
@@ -200,12 +203,12 @@
 						?>
 							<center><b>Erro. Nenhum usuário encontrado, tente novamente.</b>
 							</center>
-						<?
+						<?php
 					}
 					else
 					{
 						$strQuery = "SELECT $campos_query $final_query LIMIT $inicio,$maximo";  
-						$query    = mysql_query($strQuery);
+						$query    = mysqli_query($mysqli, $strQuery);
 						
 						?>
 							<center>
@@ -214,7 +217,7 @@
 							
 							<?php
 
-						while($row = mysql_fetch_array($query)) 
+						while($row = mysqli_fetch_array($query, MYSQLI_BOTH)) 
 						{  
 							print '<tr style="height:80px;">';
 							print '<td style="border:0px solid black;"> <div style="height:80px;width:60px;background-color:white;"><img src="'.$row['foto'].'" style="width:100%;height:100%;"></div></td>';

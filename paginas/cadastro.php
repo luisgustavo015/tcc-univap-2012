@@ -55,14 +55,14 @@
 	$data = date("d/m/Y");
 	$foto = $_POST["foto"];
 	
-	$conecta = mysql_connect("localhost", "root");
-	mysql_select_db("tcc", $conecta);
+	$mysqli = mysqli_connect('localhost', 'root', '', 'tcc');
+	
 	
 	$sql = "select email from cliente where email='$email'"; 
 
-	$resultado = mysql_query($sql); 
+	$resultado = mysqli_query($mysqli, $sql);
 
-	if (mysql_num_rows($resultado) > 0 ) 
+	if (mysqli_num_rows($resultado) > 0 ) 
 	{ 
 		print '<script>';
 		print 'alert("Este email já foi cadastrado.");';
@@ -73,9 +73,9 @@
 	{ 
 		$sql = "select login from cliente where login='$login'"; 
 		
-		$resultado = mysql_query($sql); 
+		$resultado = mysqli_query($mysqli, $sql);
 
-		if (mysql_num_rows($resultado) > 0 ) 
+		if (mysqli_num_rows($resultado) > 0 ) 
 		{ 
 			print '<script>';
 			print 'alert("Este login já foi cadastrado.");';
@@ -88,8 +88,8 @@
 			$sql = "INSERT  INTO cliente (nome, data_nascimento, email, login, senha, sexo, data_cadastro, foto)
 			VALUE  ('$nome', '$data_nascimento', '$email', '$login', '$senha', '$sexo', '$data', '$foto')";
 	
-			$r = mysql_query ($sql) or print mysql_error();
-			if($r == 0) {
+			$r = mysqli_query($mysqli, $sql);
+			if(!$r) {
          ?>
 		
 	<body bgcolor="black">
@@ -103,7 +103,7 @@
 				</center>
 				</font>
 			</div>
-		<?
+		<?php
 		}
        else {
 
@@ -114,12 +114,12 @@
 			<div class="fundo_cadastro"><img src="imagens/cadastro.png">
 				<font color="white" face="Berlin Sans FB">
 				<center><br>
-					Cliente <? print $nome; ?> cadastrado com sucesso.<br><br>
+					Cliente <?php print $nome; ?> cadastrado com sucesso.<br><br>
 					<a href="form_cadastro.php"><img src="botoes/voltar.png"></a>
 				</center>
 				</font>
 			</div>
-			 <?
+			 <?php
        }
 	   
 	   }

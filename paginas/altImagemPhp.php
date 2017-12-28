@@ -17,8 +17,8 @@
 	$cod_cliente = $_SESSION['UsuarioID'];
 	$foto = $_FILES['foto'];
 	
-	$conecta = mysql_connect("localhost", "root") or print mysql_error();
-	mysql_select_db("tcc", $conecta) or print mysql_error();
+	$mysqli = mysqli_connect('localhost', 'root', '', 'tcc');
+	
 
 	// Pasta onde o arquivo vai ser salvo
 	$_UP['pasta'] = 'upload/';
@@ -77,7 +77,7 @@
 	 $foto = "upload/".$_FILES['foto']['name'];
 	 
 	 $sql = "UPDATE cliente set foto='$foto' WHERE cod_cliente = '$cod_cliente' ";
-	 $r = mysql_query($sql);
+	 $r = mysqli_query($mysqli, $sql);
 	 
 	 
 		
@@ -206,7 +206,7 @@
 	<div class="painel2">	
 		
 		<div class="userImg">
-			<img src=" <? print $cliente['foto'] ?>" style="width:100%; height:100%;-webkit-border-radius: 20px;">
+			<img src="<?php print $cliente['foto'] ;?>" style="width:100%; height:100%;-webkit-border-radius: 20px;">
 		</div>
 		
 		<div class="menuV" style="position:absolute; top:250px; left:35px;">
@@ -224,12 +224,12 @@
 			
 							<center>
 							<br><br>
-							<b>A foto do cliente <? print $_SESSION['UsuarioNome']; ?> foi alterado com sucesso.
+							<b>A foto do cliente <?php print $_SESSION['UsuarioNome']; ?> foi alterado com sucesso.
 							<br><br>
 							<a href="alterarFotoPerfil.php"> Voltar >> </a>
 							</center>
 							
-						<?
+						<?php
 						
 					}
 					else 
@@ -241,7 +241,7 @@
 							<br><br>
 							<a href="alterarFotoPerfil.php"> Voltar >> </a>
 							</center>
-						<?
+						<?php
 					}
 				}
 				

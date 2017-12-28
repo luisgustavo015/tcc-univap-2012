@@ -1,18 +1,23 @@
-<?
-	// A sess„o precisa ser iniciada em cada p·gina diferente
+<?php
+	// A sess√£o precisa ser iniciada em cada p√°gina diferente
 	if (!isset($_SESSION)) session_start();
 	
 	
 ?>
 <html>
 <head>
+	<meta charset="UTF-8">
 	<title> Login </title>
 	<link rel="stylesheet" type="text/css" href="fundo_tudo.css">
 	<link rel="stylesheet" type="text/css" href="menu_horizontal.css">
+	<link rel="stylesheet" href="style.css" type="text/css" media="screen" />
 	
 
 	<style type="text/css">
-	
+		body
+		{
+			background: url(Wallpaper/2.jpg)fixed no-repeat top left;
+		}
 		.fundoLogin{
 			position:absolute;
 			width:300px;
@@ -35,64 +40,74 @@
 	<body bgcolor="black">
 	<div class="fundo_principal" style="position:absolute;height:800px;">
 		
-		<div class="topo">
-			
-			<?
-				if(isset($_SESSION['UsuarioID']))
-				{
-			?>
-				<div class="login">
-				<center><br><br>
-				<font face="arial" size="2">
-				Bem vindo, <? print $_SESSION['UsuarioNome']; ?><br><br>
-				<a href="logout.php">Logout</a><br><br>
-				<a href="alterarInfo.php">Editar Contar</a>
-				</font>
-				</center>
-					</div>		
-			<?
-				}
-				
-			?>
+		<div class="topo"></div>
 		
+		<div style="position:absolute;top:150px; background-color:black; width:100%; height:30px; -webkit-border-radius: 0 0 0 0 px; -moz-border-radius: 0 0 0 0 px;">
+			<?php
+				if(!isset($_SESSION['UsuarioID']))
+				{
+					echo '<center>';
+						echo '<table border="0">';	
+							echo '<tr>';	
+								echo '<td style="width:200px;" align="left" >';	
+									echo '<a href="alterarInfo.php"><font color="white" face="arial">Sua Conta</font></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';	
+								echo '</td >';	
+								echo '<td style="width:200px;" align="left"> ';	
+									echo '<a href="carrinho.php?pagina=1"><font color="white" face="arial">Carrinho</font></a>';	
+								echo '</td>';	
+								echo '<td style="width:200px;">';	
+									echo '<font color="white" face="arial">Seja bem vindo(a), <a href="login.php" style="text-decoration: underline;"><font color="white" face="arial">Entrar</font></a></font>';	
+								echo '</td>';	
+							echo '</tr>';	
+						echo '</table>';	
+					echo '</center>';		
+				}
+				else
+				{
+					echo '<center>';
+						echo '<table border="0">';
+							echo '<tr >';
+								echo '<td style="width:200px;" align="left" >';
+									echo '<a href="alterarInfo.php"><font color="white" face="arial">Sua Conta</font></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+								echo '</td >';
+								echo '<td style="width:200px;" align="left"> ';
+									echo '<a href="carrinho.php?pagina=1"><font color="white" face="arial">Carrinho</font></a>';
+								echo '</td>';
+								echo '<td style="width:200px;">';
+									echo '<font color="white" face="arial">Seja bem vindo(a), '.$_SESSION["UsuarioNome"].'</a></font>';
+								echo '</td>';
+							echo '</tr>';
+						echo '</table>';
+					echo '</center>';
+				}
+			?>
 		</div>
 			
 			
 		<ul id="menu">
-	<li>
-	<a href="index.php?pagina=1" title="Home Page">P·gina Inicial</a>
-	</li>
-	<li>
-	<a href="centralUsuario.php" title="¡rea do cliente">EspaÁo do cliente</a>
-	</li>
-	<li>
-	<a href="form_cadastro.php" title="Cadastre-se">Cadastro</a>
-	</li>
-	<li>
-	<a href="login.php" title="Entrar">Login</a>
-	</li>
-	<li>
-	<a href="produtos.php" title="Produtos para compra"> Produtos </a>
-	</li>
-	<li>
-	<a href="contato.php" title="Fale conosco">Contato</a>
-	</li>
-	</ul>
+			<li><a href="index.php" title="Home Page">P√°gina Inicial</a></li>
+			<li><a href="centralUsuario.php" title="√Årea do cliente">Espa√ßo do cliente</a></li>
+			<?php if(!isset($_SESSION['UsuarioID'])) echo '<li><a href="form_cadastro.php" title="Cadastre-se">Cadastro</a></li>'; ?>
+			<li><a href="dicas.html" title="Dicas para iniciantes">Dicas</a></li>
+			<li><a href="produtos.php" title="Produtos para compra"> Produtos </a></li>
+			<li><a href="contato.php" title="Fale conosco">Contato</a></li>
+			<li><a href="carrinho.php">Carrinho</a></li>
+		</ul>
 		
 		<div class="fundoLogin">
 		
-			<?
+			<?php
 				if(isset($_SESSION['UsuarioID']) != "")
 				{
 					?>
 					<center>
 					<font color="white">
 						<br>
-						VocÍ j· est· logado, se deseja logar com outra conta de usu·rio, por favor, deslogue o usu·rio atual.<br><br>
+						Voc√™ j√° est√° logado, se deseja logar com outra conta de usu√°rio, por favor, deslogue o usu√°rio atual.<br><br>
 						Clique <a href="centralUsuario.php"><font color="red">aqui</font></a> para ir para central.
 					</font>
 					</center>
-					<?
+					<?php
 				}
 				else
 				{
@@ -108,7 +123,7 @@
 							</font>
 						</form>
 			
-					<?
+					<?php
 				}
 			?>
 		</div>	

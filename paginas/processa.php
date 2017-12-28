@@ -1,6 +1,5 @@
-<?
+<?php
 	if (!isset($_SESSION)) session_start();
-	include 'conexao.php';
 	
 	//instanciar a pagina do carrinho
 	$pagina = 'carrinho.php';
@@ -9,25 +8,28 @@
 	
 	class shopping
 	{
-		private $banco = 'tcc';
-		private $senha = '';
-		private $login = '';
 		private $hostname = 'localhost';
+		private $banco = 'tcc';
+		private $user = 'root';
+		private $senha = '';		
 		
 		//conexao com o banco de dados
 		function conexao()
 		{
-			mysql_connect($this->hostname, $this->login, $this->senha);
-			mysql_select_db($this->banco);
-		
-			mysql_query("SET NAME 'utf8'");
-			mysql_query("SET character_set_connection=utf8");
-			mysql_query("SET character_set_client=utf8");
-			mysql_query("SET character_set_results=utf8");
-		
+			$mysqli = mysqli_connect($this->hostname, $this->user, $this->senha, $this->banco);
+			
+			/* check connection */
+			if (!$mysqli) {
+				echo "Error: Unable to connect to MySQL." . PHP_EOL;
+				echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
+				echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
+				exit;
+			}
+			
+			return $mysqli;
 		}
 		
-		//funcao que ir· mostrar o carrinho de compras
+		//funcao que ir√° mostrar o carrinho de compras
 		function carrinho()
 		{
 			//verificar se existe uma session
@@ -37,17 +39,18 @@
 				foreach($_SESSION as $nome => $quantidade)
 				{
 					
-					//verifica se a quantidade n„o esta zerada
+					//verifica se a quantidade n√£o esta zerada
 					if ($quantidade > 0){
 					if(substr($nome,0,9) == 'produtos_')
 					{
 						//pegar ID da session
 						$id = substr($nome,9,(strlen($nome) -9));
 						//montar o carrinho
-						$PD = mysql_query("SELECT cod_produto, nome, preco_v FROM produtos WHERE cod_produto=".mysql_real_escape_string((int)$id)) OR DIE(mysql_error());
-						while($list = mysql_fetch_assoc($PD))
+						$pdQuery = "SELECT cod_produto, nome, preco_v FROM produtos WHERE cod_produto=".$id;
+						$PD = mysqli_query($this->conexao(), $pdQuery);
+						while($list = mysqli_fetch_array($PD, MYSQLI_BOTH))
 						{
-							$subTotal = $quantidade * $list['preco_v'];
+							@$subTotal = $quantidade * $list['preco_v'];
 							echo '
 								<tr>
 									<td width="53%" height="44" style="background-color:white;">'.$list['nome'].'</td>
@@ -70,16 +73,16 @@
 							';
 						}
 					}
-					$Total += $subTotal;
+					@$Total += @$subTotal;
 					} 
 				}
 				
 			} 
-			if($Total == 0)
+			if(@$Total == 0)
 			{
 				echo '
 					<tr>
-					<td colspan="7" align="center" valign="midle"><font color="white"> Seu carrinho est· vazio. </font></td>
+					<td colspan="7" align="center" valign="midle"><font color="white"> Seu carrinho est√° vazio. </font></td>
 					</tr>
 					<tr>
 					<td align="center" valign="midle" bgcolor="white" height="44" colspan="7">
@@ -113,14 +116,16 @@
 	//fim classe
 	}
 	
-	//verificaÁ„o de adiÁ„o
+	//verifica√ß√£o de adi√ß√£o
 	if(isset($_GET['add']))
 	{ 
 		$conn = new shopping();
-		$conn->conexao();
 		
-		$QT = mysql_query("SELECT cod_produto, estoque FROM produtos WHERE cod_produto= ".mysql_real_escape_string((int)$_GET['add']));
-		$list = mysql_fetch_assoc($QT);
+		
+		$qtQuery = "SELECT cod_produto, estoque FROM produtos WHERE cod_produto= ".$_GET['add'];
+		$QT = mysqli_query($conn->conexao(), $qtQuery);
+		$list = mysqli_fetch_array($QT, MYSQLI_BOTH);
+		
 		if($_SESSION['produtos_'.$_GET['add']] != $list['estoque'])
 		{ 
 			$_SESSION['produtos_'.$_GET['add']] += '1';		
@@ -129,7 +134,7 @@
 		
 		header ("Location:".$pagina);
 	}
-	//verificaÁ„o de subtraÁ„o
+	//verifica√ß√£o de subtra√ß√£o
 	if(isset($_GET['menos']))
 	{
 		$_SESSION['produtos_'.$_GET['menos']]--;

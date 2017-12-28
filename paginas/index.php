@@ -16,8 +16,7 @@
     
 	  
 	// Declaração da pagina inicial   
-	if(!$_GET) 
-	{  
+	if(!$_GET){  
 		$pagina = 1;  
 	}else{
 		if($_GET['pagina']){
@@ -190,7 +189,7 @@
 									echo '<a href="carrinho.php?pagina=1"><font color="white" face="arial">Carrinho</font></a>';
 								echo '</td>';
 								echo '<td style="width:200px;">';
-									echo '<font color="white" face="arial">Seja bem vindo(a), <?print $_SESSION["UsuarioNome"]?></a></font>';
+									echo '<font color="white" face="arial">Seja bem vindo(a), '.$_SESSION["UsuarioNome"].'</a></font>';
 								echo '</td>';
 							echo '</tr>';
 						echo '</table>';
@@ -201,26 +200,13 @@
 			
 			
 		<ul id="menu">
-			<li>
-			<a href="index.php?pagina=1" title="Home Page">Página Inicial</a>
-			</li>
-			<li>
-			<a href="centralUsuario.php" title="Área do cliente">Espaço do cliente</a>
-			</li>
-			<?php
-				if(!isset($_SESSION['UsuarioID']))
-				{
-					echo '<li>';
-						echo '<a href="form_cadastro.php" title="Cadastre-se">Cadastro</a>';
-					echo '</li>';
-				}
-			?>
-			<li>
-			<a href="produtos.php" title="Produtos para compra"> Produtos </a>
-			</li>
-			<li>
-			<a href="contato.php" title="Fale conosco">Contato</a>
-			</li>
+			<li><a href="index.php" title="Home Page">Página Inicial</a></li>
+			<li><a href="centralUsuario.php" title="Área do cliente">Espaço do cliente</a></li>
+			<?php if(!isset($_SESSION['UsuarioID'])) echo '<li><a href="form_cadastro.php" title="Cadastre-se">Cadastro</a></li>'; ?>
+			<li><a href="dicas.html" title="Dicas para iniciantes">Dicas</a></li>
+			<li><a href="produtos.php" title="Produtos para compra"> Produtos </a></li>
+			<li><a href="contato.php" title="Fale conosco">Contato</a></li>
+			<li><a href="carrinho.php">Carrinho</a></li>
 		</ul>
 		
 		<br><br><br><br><br><br>
@@ -254,7 +240,7 @@
 			</div>
 		
 		
-			<?php
+		<?php
 			$strQuery = "SELECT * FROM noticia LIMIT $inicio,$maximo";  
 			$str = mysqli_query($mysqli, $strQuery);
 			
@@ -275,38 +261,39 @@
 				
 			}
 			
+			// Calculando pagina anterior
 			$menos = $pagina - 1;  
 
-						// Calculando pagina posterior  
-						$mais = $pagina + 1;
+			// Calculando pagina posterior  
+			$mais = $pagina + 1;
 
-						$pgs = ceil($total / $maximo);  
-					
-						if($pgs > 1 ) 
-						{  
-							// Mostragem de pagina  
-							if($menos > 0) 
-							{  
-								echo "<a href=\"?pagina=$menos&\" class='texto_paginacao'><font color=\"white\">anterior</a> ";  
-							}  
-							// Listando as paginas  
-							for($i=1;$i <= $pgs;$i++) 
-							{  
-								if($i != $pagina) 
-								{  
-									echo "  <a href=\"?pagina=".($i)."\" class='texto_paginacao'><font color=\"white\">$i</a>";  
-								} 
-								else 
-								{  
-									echo "  <strong class='texto_paginacao_pgatual'><font color=\"white\">".$i."</strong>";  
-								}  
-							}  
-							if($mais <= $pgs)
-							{  
-								echo "   <a href=\"?pagina=$mais\" class='texto_paginacao'><font color=\"white\">pr�xima</a>";  
-							}  
-						}  
-			?>
+			$pgs = ceil($total / $maximo);  
+		
+			if($pgs > 1 ) 
+			{  
+				// Mostragem de pagina  
+				if($menos > 0) 
+				{  
+					echo "<a href=\"?pagina=$menos&\" class='texto_paginacao'><font color=\"white\">anterior</a> ";  
+				}  
+				// Listando as paginas  
+				for($i=1;$i <= $pgs;$i++) 
+				{  
+					if($i != $pagina) 
+					{  
+						echo "  <a href=\"?pagina=".($i)."\" class='texto_paginacao'><font color=\"white\">$i</a>";  
+					} 
+					else 
+					{  
+						echo "  <strong class='texto_paginacao_pgatual'><font color=\"white\">".$i."</strong>";  
+					}  
+				}  
+				if($mais <= $pgs)
+				{  
+					echo "   <a href=\"?pagina=$mais\" class='texto_paginacao'><font color=\"white\">próxima</a>";  
+				}  
+			}  
+		?>
 		<br><br>
 		</center>
 		</div>

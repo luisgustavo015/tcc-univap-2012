@@ -15,12 +15,12 @@
 	}
 
 	$cod_cliente = $_SESSION['UsuarioID'];
-	$conecta = mysql_connect("localhost", "root") or print mysql_error();
-	mysql_select_db("tcc", $conecta) or print mysql_error();
+	$mysqli = mysqli_connect('localhost', 'root', '', 'tcc');
+	
 
 	$sqlBuscaCliente = "SELECT * FROM cliente WHERE cod_cliente = '$cod_cliente'";
-	$execBuscaCliente = mysql_query($sqlBuscaCliente) or print mysql_error();
-	$cliente = mysql_fetch_array($execBuscaCliente);
+	$execBuscaCliente = mysqli_query($mysqli, $sqlBuscaCliente);
+	$cliente = mysqli_fetch_array($execBuscaCliente, MYSQLI_BOTH);
 		
 ?>
 <html>
@@ -142,7 +142,7 @@
 	<div class="painel2" style="-moz-border-radius: 10px;-webkit-border-radius: 10px;">	
 		
 		<div class="userImg">
-			<img src=" <? print $cliente['foto'] ?>" style="width:100%; height:100%;-moz-border-radius: 10px;-webkit-border-radius: 10px;">
+			<img src=" <?php print $cliente['foto'] ?>" style="width:100%; height:100%;-moz-border-radius: 10px;-webkit-border-radius: 10px;">
 		</div>
 		
 		<div class="menuV" style="position:absolute; top:250px; left:35px;">
