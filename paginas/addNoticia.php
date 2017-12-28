@@ -1,14 +1,14 @@
 <?php
 	
-	// A sessão precisa ser iniciada em cada página diferente
+	// A sessÃ£o precisa ser iniciada em cada pÃ¡gina diferente
 	if (!isset($_SESSION)) session_start();
 
 	$nivel_necessario = 2;
 
-	// Verifica se não há a variável da sessão que identifica o usuário
+	// Verifica se nÃ£o hÃ¡ a variÃ¡vel da sessÃ£o que identifica o usuÃ¡rio
 	if (!isset($_SESSION['UsuarioID']) OR ($_SESSION['UsuarioNivel'] != $nivel_necessario)) 
 	{
-		// Destrói a sessão por segurança
+		// DestrÃ³i a sessÃ£o por seguranÃ§a
 		session_destroy();
 		// Redireciona o visitante de volta pro login
 		header("Location: login.php"); exit;
@@ -25,7 +25,7 @@
 	$final_query  = "FROM produtos WHERE estoque > 0 ";
 	
 	
-	// Declaração da pagina inicial   
+	// DeclaraÃ§Ã£o da pagina inicial   
 	if(!$_GET){  
 		$pagina = 1;  
 	}else{
@@ -52,13 +52,17 @@
 ?>
 <html>
 <head>
+	<meta charset="UTF-8">
 	<title> Central Administrador </title>
 	<link rel="stylesheet" type="text/css" href="fundo_tudo.css">
 	<link rel="stylesheet" type="text/css" href="menu_horizontal.css">
-	
+	<link rel="stylesheet" href="style.css" type="text/css" media="screen" />
 
 	<style type="text/css">
-	
+		body
+		{
+			background: url(Wallpaper/2.jpg)fixed no-repeat top left;
+		}
 		.painel{
 			position:absolute;
 			width:800px;
@@ -79,37 +83,64 @@
 	<body bgcolor="black">
 	<div class="fundo_principal" style="position:absolute;height:1100px;">
 		<div class="topo"></div>
+		
+		<div style="position:absolute;top:150px; background-color:black; width:100%; height:30px; -webkit-border-radius: 0 0 0 0 px; -moz-border-radius: 0 0 0 0 px;">
+			<?php
+				if(!isset($_SESSION['UsuarioID']))
+				{
+					echo '<center>';
+						echo '<table border="0">';	
+							echo '<tr>';	
+								echo '<td style="width:200px;" align="left" >';	
+									echo '<a href="alterarInfo.php"><font color="white" face="arial">Sua Conta</font></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';	
+								echo '</td >';	
+								echo '<td style="width:200px;" align="left"> ';	
+									echo '<a href="carrinho.php?pagina=1"><font color="white" face="arial">Carrinho</font></a>';	
+								echo '</td>';	
+								echo '<td style="width:200px;">';	
+									echo '<font color="white" face="arial">Seja bem vindo(a), <a href="login.php" style="text-decoration: underline;"><font color="white" face="arial">Entrar</font></a></font>';	
+								echo '</td>';	
+							echo '</tr>';	
+						echo '</table>';	
+					echo '</center>';		
+				}
+				else
+				{
+					echo '<center>';
+						echo '<table border="0">';
+							echo '<tr >';
+								echo '<td style="width:200px;" align="left" >';
+									echo '<a href="alterarInfo.php"><font color="white" face="arial">Sua Conta</font></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+								echo '</td >';
+								echo '<td style="width:200px;" align="left"> ';
+									echo '<a href="carrinho.php?pagina=1"><font color="white" face="arial">Carrinho</font></a>';
+								echo '</td>';
+								echo '<td style="width:200px;">';
+									echo '<font color="white" face="arial">Seja bem vindo(a), '.$_SESSION["UsuarioNome"].'</a></font>';
+								echo '</td>';
+							echo '</tr>';
+						echo '</table>';
+					echo '</center>';
+				}
+			?>
+		</div>
 			
 			
 		<ul id="menu">
-	<li>
-	<a href="index.php?pagina=1" title="Home Page">Página Inicial</a>
-	</li>
-	<li>
-	<a href="centralUsuario.php" title="Área do cliente">Espaço do cliente</a>
-	</li>
-	<li>
-	<a href="form_cadastro.php" title="Cadastre-se">Cadastro</a>
-	</li>
-	<li>
-	<a href="login.php" title="Entrar">Login</a>
-	</li>
-	<li>
-	<a href="dicas.html" title="Dicas para iniciantes">Dicas</a>
-	</li>
-	<li>
-	<a href="produtos.php" title="Produtos para compra"> Produtos </a>
-	</li>
-	<li>
-	<a href="contato.html" title="Fale conosco">Contato</a>
-	</li>
-	</ul>
+			<li><a href="index.php" title="Home Page">PÃ¡gina Inicial</a></li>
+			<li><a href="centralUsuario.php" title="Ãrea do cliente">EspaÃ§o do cliente</a></li>
+			<?php if(!isset($_SESSION['UsuarioID'])) echo '<li><a href="form_cadastro.php" title="Cadastre-se">Cadastro</a></li>'; ?>
+			<li><a href="dicas.html" title="Dicas para iniciantes">Dicas</a></li>
+			<li><a href="produtos.php" title="Produtos para compra"> Produtos </a></li>
+			<li><a href="contato.php" title="Fale conosco">Contato</a></li>
+			<li><a href="carrinho.php">Carrinho</a></li>
+		</ul>
 		
 		<center>
 		<font color="black" face="Berlin Sans FB">
 			<br><br><br><br><br><br><br><br><br><br><br><br><br>
 			Bem Vindo, <?php echo $_SESSION['UsuarioNome']; ?>&nbsp;! <br>
-			No painel abaixo existem algumas opções que você como administrador tem acesso.
+			No painel abaixo existem algumas opÃ§Ãµes que vocÃª como administrador tem acesso.
 		</font>
 		</center>
 		
@@ -118,14 +149,14 @@
 			<font color="white" face="Berlin Sans FB">
 			<center><br>
 				<form name="noticia" method="POST" action="addNoticiaSQL.php" enctype="multipart/form-data">
-					Vincular notícia a algum jogo<br>
+					Vincular notÃ­cia a algum jogo<br>
 					<?php
 
 					   if($total == 0) 
 					   {
 						 ?>
 							<font color="white">
-						   <center><b>Produto(s) não encontrado(s), tente novamente.</b>
+						   <center><b>Produto(s) nÃ£o encontrado(s), tente novamente.</b>
 						   </center></font>
 						 <?php
 					   }
@@ -150,7 +181,7 @@
 									{
 									  print '<tr>';
 									  print '<td><div align="center"><font color="white">'.$row['nome'].'</font></div></td>';
-									  print '<td> <a href="addNoticia.php?cod_produto='.$row['cod_produto'].'&pagina=1"><div align="center"><font color="white">Adicionar Notícia >> </font></div></a></td>';
+									  print '<td> <a href="addNoticia.php?cod_produto='.$row['cod_produto'].'&pagina=1"><div align="center"><font color="white">Adicionar NotÃ­cia >> </font></div></a></td>';
 									  print '</tr>';
 									}
 								  ?>
@@ -190,7 +221,7 @@
 										}  
 										if($mais <= $pgs)
 										{  
-											echo "   <a href=\"?pagina=$mais\" class='texto_paginacao'><font color=\"white\">próxima</font></a>";  
+											echo "   <a href=\"?pagina=$mais\" class='texto_paginacao'><font color=\"white\">prÃ³xima</font></a>";  
 										}  
 									}  
 						
@@ -199,7 +230,7 @@
 
 
 					<br><br>
-					Você irá adicionar a noticia relacionada ao seguinte produto: 
+					VocÃª irÃ¡ adicionar a noticia relacionada ao seguinte produto: 
 					<?php
 						if(isset($_GET["cod_produto"]))
 						{

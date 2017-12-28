@@ -1,12 +1,12 @@
 <?php
 
-		// A sessão precisa ser iniciada em cada página diferente
+		// A sessÃ£o precisa ser iniciada em cada pÃ¡gina diferente
 		if (!isset($_SESSION)) session_start();
 
 		$nivel_necessario = 1;
 		$nivel_necessario2 = 2;
 
-		// Verifica se não há a variável da sessão que identifica o usuário
+		// Verifica se nÃ£o hÃ¡ a variÃ¡vel da sessÃ£o que identifica o usuÃ¡rio
 		if (!isset($_SESSION['UsuarioID']) OR ($_SESSION['UsuarioNivel'] == $nivel_necessario2)) 
 		{
 			// Redireciona o visitante para a pagina do ADM
@@ -14,7 +14,7 @@
 		}
 		else if (!isset($_SESSION['UsuarioID']) OR ($_SESSION['UsuarioNivel'] != $nivel_necessario)) 
 		{
-			// Destrói a sessão por segurança
+			// DestrÃ³i a sessÃ£o por seguranÃ§a
 			session_destroy();
 			// Redireciona o visitante de volta pro login
 			header("Location: login.php"); exit;
@@ -51,7 +51,7 @@
 	
 	
 	
-	// Declaração da pagina inicial  
+	// DeclaraÃ§Ã£o da pagina inicial  
 	$pagina = $_GET["pagina"];  
 	if($pagina == "") 
 	{  
@@ -80,13 +80,17 @@
 
 <html>
 <head>
-	<title> Central Usuário </title>
+	<meta charset="UTF-8">
+	<title> Central UsuÃ¡rio </title>
 	<link rel="stylesheet" type="text/css" href="fundo_tudo.css">
 	<link rel="stylesheet" type="text/css" href="menu_horizontal.css">
-	
+	<link rel="stylesheet" href="style.css" type="text/css" media="screen" />
 
 	<style type="text/css">
-	
+		body
+		{
+			background: url(Wallpaper/2.jpg)fixed no-repeat top left;
+		}
 		.painel{
 			position:absolute;
 			width:500px;
@@ -121,61 +125,65 @@
 	<body bgcolor="black">
 	<div class="fundo_principal" style="position:absolute;height:1000px;">
 		
-		<div class="topo">
-			<div class="login">
+		<div class="topo"></div>
+		
+		<div style="position:absolute;top:150px; background-color:black; width:100%; height:30px; -webkit-border-radius: 0 0 0 0 px; -moz-border-radius: 0 0 0 0 px;">
 			<?php
 				if(!isset($_SESSION['UsuarioID']))
 				{
-			?>
-				<form name="logar" method="post" action="logar.php">
-				<center><br>
-					Login: <input type="text" name="login" size="20"><br>
-					Senha: <input type="password" name="senha" size="20"><br>
-					<input type="submit" value="logar">
-				</center>
-				</form>
-			<?php
+					echo '<center>';
+						echo '<table border="0">';	
+							echo '<tr>';	
+								echo '<td style="width:200px;" align="left" >';	
+									echo '<a href="alterarInfo.php"><font color="white" face="arial">Sua Conta</font></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';	
+								echo '</td >';	
+								echo '<td style="width:200px;" align="left"> ';	
+									echo '<a href="carrinho.php?pagina=1"><font color="white" face="arial">Carrinho</font></a>';	
+								echo '</td>';	
+								echo '<td style="width:200px;">';	
+									echo '<font color="white" face="arial">Seja bem vindo(a), <a href="login.php" style="text-decoration: underline;"><font color="white" face="arial">Entrar</font></a></font>';	
+								echo '</td>';	
+							echo '</tr>';	
+						echo '</table>';	
+					echo '</center>';		
 				}
 				else
 				{
-			?>
-				<center><br><br>
-				Bem vindo, <? print $_SESSION['UsuarioNome']; ?><br>
-				<a href="logout.php">Logout</a><br>
-				<a href="alterarInfo.php">Editar Contar</a>
-				</center>
-			<?php
+					echo '<center>';
+						echo '<table border="0">';
+							echo '<tr >';
+								echo '<td style="width:200px;" align="left" >';
+									echo '<a href="alterarInfo.php"><font color="white" face="arial">Sua Conta</font></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+								echo '</td >';
+								echo '<td style="width:200px;" align="left"> ';
+									echo '<a href="carrinho.php?pagina=1"><font color="white" face="arial">Carrinho</font></a>';
+								echo '</td>';
+								echo '<td style="width:200px;">';
+									echo '<font color="white" face="arial">Seja bem vindo(a), '.$_SESSION["UsuarioNome"].'</a></font>';
+								echo '</td>';
+							echo '</tr>';
+						echo '</table>';
+					echo '</center>';
 				}
 			?>
-			</div>
 		</div>
 			
 			
 		<ul id="menu">
-			<li>
-			<a href="index.php" title="Home Page">Página Inicial</a>
-			</li>
-			<li>
-			<a href="centralUsuario.php" title="Área do cliente">Espaço do cliente</a>
-			</li>
-			<li>
-			<a href="form_cadastro.php" title="Cadastre-se">Cadastro</a>
-			</li>
-			<li>
-			<a href="login.php" title="Entrar">Login</a>
-			</li>
-			<li>
-			<a href="produtos.php" title="Produtos para compra"> Produtos </a>
-			<li>
-			<a href="contato.php" title="Fale conosco">Contato</a>
-			</li>
+			<li><a href="index.php" title="Home Page">PÃ¡gina Inicial</a></li>
+			<li><a href="centralUsuario.php" title="Ãrea do cliente">EspaÃ§o do cliente</a></li>
+			<?php if(!isset($_SESSION['UsuarioID'])) echo '<li><a href="form_cadastro.php" title="Cadastre-se">Cadastro</a></li>'; ?>
+			<li><a href="dicas.html" title="Dicas para iniciantes">Dicas</a></li>
+			<li><a href="produtos.php" title="Produtos para compra"> Produtos </a></li>
+			<li><a href="contato.php" title="Fale conosco">Contato</a></li>
+			<li><a href="carrinho.php">Carrinho</a></li>
 		</ul>
 		
 		<center>
 		<font color="black" face="Berlin Sans FB">
-			<br><br><br><br><br><br><br><br><br><br><br><br><br>
+			<br><br><br><br><br><br><br><br><br><br>
 			Bem Vindo, <?php echo $_SESSION['UsuarioNome']; ?>&nbsp;! <br>
-			No painel abaixo existem algumas opções que você como cliente tem acesso.
+			No painel abaixo existem algumas opÃ§Ãµes que vocÃª como cliente tem acesso.
 		</font>
 		</center>
 		
@@ -184,7 +192,7 @@
 			<center>
 			<br>
 			
-			Bem vindo ao sistema de procura de amigos você poderá procurar por novas amizades para trocar informações sobre jogos. Conheça aqui os maiores apaixonados por games como você.
+			Bem vindo ao sistema de procura de amigos vocÃª poderÃ¡ procurar por novas amizades para trocar informaÃ§Ãµes sobre jogos. ConheÃ§a aqui os maiores apaixonados por games como vocÃª.
 			<br><br>
 			<form name="filtro" method="POST" action="procuraAmigos.php?pagina=1">
 			Procurar novos amigos por:<br>
@@ -201,7 +209,7 @@
 					if($total == 0)
 					{
 						?>
-							<center><b>Erro. Nenhum usuário encontrado, tente novamente.</b>
+							<center><b>Erro. Nenhum usuÃ¡rio encontrado, tente novamente.</b>
 							</center>
 						<?php
 					}
@@ -222,7 +230,7 @@
 							print '<tr style="height:80px;">';
 							print '<td style="border:0px solid black;"> <div style="height:80px;width:60px;background-color:white;"><img src="'.$row['foto'].'" style="width:100%;height:100%;"></div></td>';
 							print '<td style="border:0px solid black;"> <font color="white" face="Berlin Sans FB"><div align="center">'.$row['nome'].'</div></font></td>';
-							print '<td style="border:0px solid black;"> <a href=detalhesAmigo.php?codAmigo='.$row['cod_cliente'].'&tipo=1 style="text-decoration:none;"> <font color="white" face="Berlin Sans FB">&nbsp;&nbsp;&nbsp; Mais Informações >>&nbsp;&nbsp;&nbsp; </font></a></td>';
+							print '<td style="border:0px solid black;"> <a href=detalhesAmigo.php?codAmigo='.$row['cod_cliente'].'&tipo=1 style="text-decoration:none;"> <font color="white" face="Berlin Sans FB">&nbsp;&nbsp;&nbsp; Mais InformaÃ§Ãµes >>&nbsp;&nbsp;&nbsp; </font></a></td>';
 							print '<td style="border:0px solid black;"> <a href=addAmigo.php?codAmigo='.$row['cod_cliente'].'&forma=2> <font color="white" face="Berlin Sans FB"> Adicionar aos amigos + </font></a></td>';
 							print '</tr>';
 						}
@@ -263,7 +271,7 @@
 							}  
 							if($mais <= $pgs)
 							{  
-								echo "   <a href=\"?pagina=$mais\" class='texto_paginacao'>próxima</a>";  
+								echo "   <a href=\"?pagina=$mais\" class='texto_paginacao'>prÃ³xima</a>";  
 							}  
 						}  
 						
