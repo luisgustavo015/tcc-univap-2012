@@ -1,95 +1,286 @@
-/*=================================*/
-/* Nivo Slider Demo
-/* November 2010
-/* By: Gilbert Pellegrom
-/* http://dev7studios.com
-/*=================================*/
+*{ margin:0; padding:0;}
 
-/*====================*/
-/*=== Reset Styles ===*/
-/*====================*/
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, font, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td {
-	margin:0;
-	padding:0;
-	border:0;
-	outline:0;
-	font-weight:inherit;
-	font-style:inherit;
-	font-size:100%;
-	font-family:inherit;
-	vertical-align:baseline;
-}
-body {
-	line-height:1;
-	color:black;
-	background:white;
-}
-table {
-	border-collapse:separate;
-	border-spacing:0;
-}
-caption, th, td {
-	text-align:left;
-	font-weight:normal;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content:"";
-}
-blockquote, q {
-	quotes:"" "";
-}
-/* HTML5 tags */
-header, section, footer,
-aside, nav, article, figure {
-	display: block;
-}
+body{ background: url(Wallpaper/2.jpg)fixed no-repeat top left;}
 
-/*===================*/
-/*=== Main Styles ===*/
-/*===================*/
-body {
-	font:14px/1.6 Georgia, Palatino, Palatino Linotype, Times, Times New Roman, serif;
-	color:#333;
-	background:#eee;
-}
+/***************************************************************************************************************
+*																												*
+*										header.php																*
+*																												*
+****************************************************************************************************************/
 
-a, a:visited {
-	color:blue;
-	text-decoration:none;
-}
-a:hover, a:active {
-	color:#000;
-	text-decoration:none;
-}
+header{ display: block; width: 100%; margin: 0 auto; background-color:#363636;}
 
-#dev7link {
-    position:absolute;
-    top:0;
-    left:50px;
-    background:url(images/dev7logo.png) no-repeat;
-    width:60px;
-    height:67px;
-    border:0;
-    display:block;
-    text-indent:-9999px;
-}
+header .topo{ display: block; width:100%; height:150px; background-image:url(imagens/topo.png);}
 
-.slider-wrapper { 
-	width: 80%; 
-	margin: 100px auto;
-}
+header ul.menu{ width: 80%; margin: 0 auto; font-weight:bold; background-color:#363636; list-style:none;}
+header ul.menu li{ display:inline-block; padding:1% 2%;}
+header ul.menu li:hover{background-color:#ccc;}
+header ul.menu li a{ color:#ccc; text-decoration:none; font-weight:bold;}
+header ul.menu li:hover a{ color:#FFFFFF;}
 
-/*====================*/
-/*=== Other Styles ===*/
-/*====================*/
-.clear {
-	clear:both;
-}
+
+/***************************************************************************************************************
+*																												*
+*										index.php																*
+*																												*
+****************************************************************************************************************/
+
+.slider-wrapper{ display: block; width: 100%; margin: 0 auto;}
+
+div.painel{ display: block; width:80%; margin: 2% auto 10% auto; background-color:black; -moz-box-shadow: 0 0 5px 5px #888; -webkit-box-shadow: 0 0 5px 5px#888; box-shadow: 0 0 5px 5px #888; -moz-border-radius:20px; -webkit-border-radius: 20px;}
+div.painel .title{ float: left; width:100%; padding: 15px 0; margin-bottom: 2%; color: #fff; font-size: 3em; background-image:url(imagens/rodape.jpg);-webkit-border-radius: 20 20 0 0px; -moz-border-radius: 20 20 0 0px;}
+
+div.painel table{ width:80%; border: 0;}
+div.painel table tr{ float: left; width: 50%; margin-bottom: 10px;}
+div.painel table tr td{ display: inline-block; width:75%; margin-right:5%; color: #fff;}
+div.painel table tr td:first-child{ width:20%;}
+div.painel table tr td:last-child{ margin-right:0;}
+div.painel table tr td a{ color: #fff; text-decoration: none;}
+div.painel table tr td a:hover{ color: #FF3030;} 
+
+
+/***************************************************************************************************************
+*																												*
+*										noticia.php																*
+*																												*
+****************************************************************************************************************/
+
+.fundo_noticias{ display: block; width:70%; margin: 5% auto 7% auto; padding: 2% 5%; background-color:black; -moz-border-radius:20px; -webkit-border-radius: 20px; font-family: Berlin Sans FB; color: #fff;}
+
+.fundo_noticias table{ display: block; width: 100%; font-family: Berlin Sans FB; color: #fff; border: 0;}
+.fundo_noticias table tr{ margin: 0 auto 2% auto;}
+.fundo_noticias table tr td{ text-align: center; font-size: 1.2em;}
+.fundo_noticias table tr td img{ display: block; width: 100%; height:450px;}
+.fundo_noticias table tr td.titulo_not{ font-size: 3em; font-family: arial;}
+
+
+/***************************************************************************************************************
+*																												*
+*										addNoticiaSQL.php														*
+*																												*
+****************************************************************************************************************/
+
+.painel_addNoticia{ display: block; width:70%; margin: 5% auto 7% auto; padding: 2% 5%; background-color:black; -moz-border-radius:20px; -webkit-border-radius: 20px; font-family: Berlin Sans FB; color: #fff;}
+
+
+/***************************************************************************************************************
+*																												*
+*										addProdutosSQL.php														*
+*																												*
+****************************************************************************************************************/
+
+.fundo_prod{ display: block; width:80%; margin: 2% auto 10% auto; background-color:black; -moz-box-shadow: 0 0 5px 5px #888; -webkit-box-shadow: 0 0 5px 5px#888; box-shadow: 0 0 5px 5px #888; -moz-border-radius:20px; -webkit-border-radius: 20px; font-family: Berlin Sans FB; color: #fff;}
+.fundo_cadProd{}
+
+/***************************************************************************************************************
+*																												*
+*										detalhes_produto.php													*
+*																												*
+****************************************************************************************************************/
+
+.principal{ display: block; width:70%; margin: 5% auto 7% auto; padding: 2% 5%; background-color:black; -moz-border-radius:20px; -webkit-border-radius: 20px; color: #fff;}
+
+.principal table{display:block; width: 100%; border:0; color: #fff;}
+.principal table tr{ width: 100%;}
+.principal table tr td{ display:block; float: left; width: 50%;}
+.principal table tr td span{ display:block; margin-bottom: 10px;}
+
+.principal table tr td span > input{ padding: 10px;}
+
+
+/***************************************************************************************************************
+*																												*
+*										login.php																*
+*																												*
+****************************************************************************************************************/
+
+.fundoLogin{ display: block; padding: 4% 0; width:30%; margin: 5% auto 5% auto; background-color:black; -moz-border-radius:20px; -webkit-border-radius: 20px;}
+.fundoLogin input{ width:50%;}
+
+
+/***************************************************************************************************************
+*																												*
+*										form_cadastro.php														*
+*																												*
+****************************************************************************************************************/
+
+.fundo_cadastro{ display: block; width:80%; padding-bottom:2%; margin: 5% auto 7% auto; background-color:black; -moz-border-radius:20px; -webkit-border-radius: 20px; -moz-box-shadow: 0 0 5px 5px #888; -webkit-box-shadow: 0 0 5px 5px#888; box-shadow: 0 0 5px 5px #888;}
+.limpa_form{ background: url(botoes/limpar.png); border: 0px; cursor: pointer; width: 150px; height: 40px; top: 200px;}
+
+
+/***************************************************************************************************************
+*																												*
+*										cadastro.php															*
+*																												*
+****************************************************************************************************************/
+
+.fundo_principal{ display: block; width:80%; padding-bottom:2%; margin: 5% auto 7% auto; background-color:black; -moz-border-radius:20px; -webkit-border-radius: 20px; -moz-box-shadow: 0 0 5px 5px #888; -webkit-box-shadow: 0 0 5px 5px#888; box-shadow: 0 0 5px 5px #888; font-family: Berlin Sans FB; color: #fff;}
+.fundo_principal .fundo_cadsql{ display: block; width: 100%;}
+
+
+/***************************************************************************************************************
+*																												*
+*										produtos.php													   		*
+*																												*
+****************************************************************************************************************/
+
+.fundo_produtos{ display: block; width:80%; margin: 5% auto 7% auto; background-color:black; -moz-border-radius:20px; -webkit-border-radius: 20px; -moz-box-shadow: 0 0 10px 5px black; -webkit-box-shadow: 0 0 10px 5px black; box-shadow: 0 0 10px 5px black;}
+
+
+/***************************************************************************************************************
+*																												*
+*										contato.php													   			*
+*																												*
+****************************************************************************************************************/
+
+.box_contato{ display: block; width:80%; margin: 5% auto 7% auto; background-color: black; -moz-box-shadow: 0 0 5px 5px #888; -webkit-box-shadow: 0 0 5px 5px#888; box-shadow: 0 0 5px 5px #888; -moz-border-radius:15px; -webkit-border-radius: 15px;}
+
+
+/***************************************************************************************************************
+*																												*
+*										carrinho.php													   		*
+*																												*
+****************************************************************************************************************/
+
+.painel_carrinho{ display: block; width:80%; margin: 5% auto 7% auto; background-color:black; -moz-border-radius:20px; -webkit-border-radius: 20px;}
+
+
+/***************************************************************************************************************
+*																												*
+*										centralAdm.php													   		*
+*																												*
+****************************************************************************************************************/
+
+.painel_adm{ display: block; width:80%; margin: 5% auto 7% auto; background-color:black; -moz-border-radius:20px; -webkit-border-radius: 20px;}
+
+
+/***************************************************************************************************************
+*																												*
+*										alterarInfo.php													   		*
+*																												*
+****************************************************************************************************************/
+
+.painel2{display: block; width:80%; margin: 5% auto 7% auto; padding: 2% 0; background-image:url(images/transparente.png);}
+
+.userImg{ display: block; width:20%; margin: 0 auto; height:200px; background-color:white; -moz-border-radius: 10px; -webkit-border-radius: 10px; border: 5px solid black;}
+.menuV{ margin: 0 auto; text-align: center;}
+
+.painel_info{ display: block; width:80%; margin: 5% auto 7% auto; background-color:black; -moz-border-radius:20px; -webkit-border-radius: 20px;}
+.arredondarPrimeiro{ -moz-border-radius-topleft: 7px; -moz-border-radius-topright: 7px; -webkit-border-top-left-radius: 7px; -webkit-border-top-right-radius: 7px;}
+.arredondarUltimo{ -moz-border-radius-bottomleft: 7px; -moz-border-radius-bottomright: 7px; -webkit-border-bottom-left-radius: 7px; -webkit-border-bottom-right-radius: 7px;}
+
+
+/***************************************************************************************************************
+*																												*
+*										addNoticia.php													   		*
+*																												*
+****************************************************************************************************************/
+
+.painel_noticia{ display: block; width:80%; margin: 5% auto 7% auto; background-color:black; -moz-border-radius:20px; -webkit-border-radius: 20px;}
+
+
+/***************************************************************************************************************
+*																												*
+*										gerenciadorClientes.php											   		*
+*																												*
+****************************************************************************************************************/
+
+.painel_gerencia{ display: block; width:80%; margin: 5% auto 7% auto; padding: 2% 0; background-color:black; -moz-border-radius:20px; -webkit-border-radius: 20px;}
+
+.painel_gerencia .fieldset_style{ display: block; width:80%; margin: 0 auto; -moz-border-radius:20px;-webkit-border-radius: 20px;}
+
+
+/***************************************************************************************************************
+*																												*
+*										addprodutos.php											   				*
+*																												*
+****************************************************************************************************************/
+
+.painel_addprodutos{ display: block; width:80%; margin: 5% auto 7% auto; padding: 2% 0; background-color:black; -moz-border-radius:20px; -webkit-border-radius: 20px;}
+
+.painel_addprodutos .fieldset_style{ display: block; width:80%; margin: 0 auto; -moz-border-radius:20px;-webkit-border-radius: 20px;}
+
+.painel_addprodutos input[type="text"]{ width: 50%;}
+
+
+/***************************************************************************************************************
+*																												*
+*										centralUsuario.php										   				*
+*																												*
+****************************************************************************************************************/
+
+.painel_user{ display: block; width:70%; margin: 5% auto 7% auto; padding: 2% 5%; background-color:black; -moz-border-radius:20px; -webkit-border-radius: 20px;}
+.painel_user table{width: 100%; border-collapse: collapse; border: 0;}
+.painel_user table tr{padding: 5px 0;}
+.painel_user table tr td{ width: 50%; border: 0; font-family: arial; color: white;}
+.painel_user table tr td .foto{ margin: 0 auto; width: 50%; background-color: #fff;}
+.painel_user input.frasePerfil{ width: 100%; padding: 5px 0; font-family: arial black; color:#696969; -moz-border-radius:10px;-webkit-border-radius: 10px;}
+
+.painel_user .fieldset_style { width: 80%; -moz-border-radius:20px; -webkit-border-radius: 20px;}
+
+
+/***************************************************************************************************************
+*																												*
+*										procuraAmigos.php										   				*
+*																												*
+****************************************************************************************************************/
+
+.painel_amigos{ display: block; width:70%; margin: 5% auto 7% auto; padding: 2% 5%; background-color:black; -moz-border-radius:20px; -webkit-border-radius: 20px; font-family: Berlin Sans FB; color: #fff;}
+.painel_amigos fieldset{ width: 80%; -moz-border-radius:15px; -webkit-border-radius: 15px; margin-bottom: 20px;}
+
+.painel_amigos table{ width: 100%; border: 0;}
+.painel_amigos table tr{ width: 100%; height: 80px;}
+
+/***************************************************************************************************************
+*																												*
+*										paginaAmigos.php										   				*
+*																												*
+****************************************************************************************************************/
+
+.painel_meusAmigos{ display: block; width:70%; margin: 5% auto 7% auto; padding: 2% 5%; background-color:black; -moz-border-radius:20px; -webkit-border-radius: 20px; font-family: Berlin Sans FB; color: #fff;}
+.painel_meusAmigos table{ width: 100%; border: 0;}
+.painel_meusAmigos table tr{ float: left; width: 50%; height: 80px; margin-bottom: 10px;}
+.painel_meusAmigos table tr td{ display: inline-block; width:35%; margin-right:5%; color: #fff;}
+.painel_meusAmigos table tr td:first-child{ width: 20%;}
+.painel_meusAmigos table tr td:last-child{ margin-right:0;}
+.painel_meusAmigos table tr td a{ color: #fff;}
+
+
+/***************************************************************************************************************
+*																												*
+*										detalhesAmigo.php										   				*
+*																												*
+****************************************************************************************************************/
+
+.painel_detalhes{ display: block; width:70%; margin: 5% auto 7% auto; padding: 2% 5%; background-color:black; -moz-border-radius:20px; -webkit-border-radius: 20px; font-family: Berlin Sans FB; color: #fff;}
+.painel_detalhes .fieldset_style{ width: 80%; -moz-border-radius:20px; -webkit-border-radius: 20px;}
+
+
+/***************************************************************************************************************
+*																												*
+*										addAmigo.php										   				*
+*																												*
+****************************************************************************************************************/
+
+.painel_addAmigo{ display: block; width:70%; margin: 5% auto 7% auto; padding: 2% 5%; background-color:black; -moz-border-radius:20px; -webkit-border-radius: 20px; font-family: Berlin Sans FB; color: #fff;}
+
+
+
+/***************************************************************************************************************
+*																												*
+*										footer.php																*
+*																												*
+****************************************************************************************************************/
+
+.rodape{ display: block; width:100%; height:200px; background-image:url(imagens/rodape.jpg); -moz-box-shadow: 0 0 5px 5px #888; -webkit-box-shadow: 0 0 5px 5px #888; box-shadow: 0 0 5px 5px #888;}
+
+.login{ position:absolute; width: 260px; height: 120px; background-color: white; -moz-border-radius:20px; -webkit-border-radius: 20px; left:620px; top:50%; margin-top:-60px; -moz-box-shadow: 0 0 5px 5px white; -webkit-box-shadow: 0 0 5px 5px white; box-shadow: 0 0 5px 5px white;}
+
+
+/***************************************************************************************************************
+*																												*
+*										   hacks																*
+*																												*
+****************************************************************************************************************/
+
+.clear{ clear:both;}

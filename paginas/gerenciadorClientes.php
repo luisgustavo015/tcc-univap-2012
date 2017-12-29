@@ -17,6 +17,8 @@
 	
 	$mysqli = mysqli_connect('localhost', 'root', '', 'tcc');
 	
+	require 'include/header.php';
+	
 	$campos_query = "*";  
 	
 	
@@ -46,112 +48,18 @@
 				
   
 ?>
-
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title> Central Administrador - Gerencidor Clientes/Administradores </title>
-	<link rel="stylesheet" type="text/css" href="fundo_tudo.css">
-	<link rel="stylesheet" type="text/css" href="menu_horizontal.css">
-	<link rel="stylesheet" href="style.css" type="text/css" media="screen" />
-	
-
-	<style type="text/css">
-		body
-		{
-			background: url(Wallpaper/2.jpg)fixed no-repeat top left;
-		}
-		.painel{
-			position:absolute;
-			width:700px;
-			left:50%;
-			margin-left: -350px;
-			height:650px;
-			background-color:black;
-			-moz-border-radius:20px;
-			-webkit-border-radius: 20px;
-			top:290px;
-		}
-		
-		.texto_paginacao{
-			
-		}
-		
-	</style>
-	
-	
-	
-</head>
-<body bgcolor="black">
-	<div class="fundo_principal" style="position:absolute;height:1000px;">
-		
-		<div class="topo"></div>
-		
-		<div style="position:absolute;top:150px; background-color:black; width:100%; height:30px; -webkit-border-radius: 0 0 0 0 px; -moz-border-radius: 0 0 0 0 px;">
-			<?php
-				if(!isset($_SESSION['UsuarioID']))
-				{
-					echo '<center>';
-						echo '<table border="0">';	
-							echo '<tr>';	
-								echo '<td style="width:200px;" align="left" >';	
-									echo '<a href="alterarInfo.php"><font color="white" face="arial">Sua Conta</font></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';	
-								echo '</td >';	
-								echo '<td style="width:200px;" align="left"> ';	
-									echo '<a href="carrinho.php?pagina=1"><font color="white" face="arial">Carrinho</font></a>';	
-								echo '</td>';	
-								echo '<td style="width:200px;">';	
-									echo '<font color="white" face="arial">Seja bem vindo(a), <a href="login.php" style="text-decoration: underline;"><font color="white" face="arial">Entrar</font></a></font>';	
-								echo '</td>';	
-							echo '</tr>';	
-						echo '</table>';	
-					echo '</center>';		
-				}
-				else
-				{
-					echo '<center>';
-						echo '<table border="0">';
-							echo '<tr >';
-								echo '<td style="width:200px;" align="left" >';
-									echo '<a href="alterarInfo.php"><font color="white" face="arial">Sua Conta</font></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-								echo '</td >';
-								echo '<td style="width:200px;" align="left"> ';
-									echo '<a href="carrinho.php?pagina=1"><font color="white" face="arial">Carrinho</font></a>';
-								echo '</td>';
-								echo '<td style="width:200px;">';
-									echo '<font color="white" face="arial">Seja bem vindo(a), '.$_SESSION["UsuarioNome"].'</a></font>';
-								echo '</td>';
-							echo '</tr>';
-						echo '</table>';
-					echo '</center>';
-				}
-			?>
-		</div>
-			
-			
-		<ul id="menu">
-			<li><a href="index.php" title="Home Page">PÃ¡gina Inicial</a></li>
-			<li><a href="centralUsuario.php" title="Ãrea do cliente">EspaÃ§o do cliente</a></li>
-			<?php if(!isset($_SESSION['UsuarioID'])) echo '<li><a href="form_cadastro.php" title="Cadastre-se">Cadastro</a></li>'; ?>
-			<li><a href="dicas.html" title="Dicas para iniciantes">Dicas</a></li>
-			<li><a href="produtos.php" title="Produtos para compra"> Produtos </a></li>
-			<li><a href="contato.php" title="Fale conosco">Contato</a></li>
-			<li><a href="carrinho.php">Carrinho</a></li>
-		</ul>
-		
-		<center>
+	<center>	
 		<font color="black" face="Berlin Sans FB">
-			<br><br><br><br><br><br><br><br><br><br><br><br><br>
 			Bem Vindo, <?php echo $_SESSION['UsuarioNome']; ?>&nbsp;! <br>
-			No painel abaixo você encontrara informação sobre todos os clientes e administradores.
+			No painel abaixo vocÃª encontrara informaÃ§Ã£o sobre todos os clientes e administradores.
 		</font>
-		</center>
+	</center>
 		
-		<div class="painel">
+	<div class="painel_gerencia">
 		<center>
 			<font color="white" face="Berlin Sans FB">
-			<center><br><br>
-			<b><font color="white" face="Berlin Sans FB">Gerenciador de Clientes e Administradores</font></b><br><br>
+			<center>
+				<b><font color="white" face="Berlin Sans FB">Gerenciador de Clientes e Administradores</font></b>
 			
 			
 				<?php
@@ -161,7 +69,7 @@
 					if($total == 0)
 					{
 						?>
-							<center><b>Cliente(s) não encontrado(s), tente novamente.</b>
+							<center><b>Cliente(s) nÃ£o encontrado(s), tente novamente.</b>
 							</center>
 						<?php
 					}
@@ -229,43 +137,29 @@
 							}  
 							if($mais <= $pgs)
 							{  
-								echo "   <a href=\"?pagina=$mais\" class='texto_paginacao'>próxima</a>";  
+								echo "   <a href=\"?pagina=$mais\" class='texto_paginacao'>prÃ³xima</a>";  
 							}  
 						}  
 						
 					}
 					
 				?>
-			<br><br>
-			<fieldset style="position:absolute;width:400px;-moz-border-radius:20px;-webkit-border-radius: 20px;left:50%; margin-left:-200px;">
-				Pesquisar por nome:<br><br>
-				<form name="filtro" method="POST" action="filtroCliente.php">
-					Nome: <input type="text" name="nome" size="30"><br><br>
-					<input type="submit" value="pesquisar"><br><br>
-					<font color="red">Obs: Tambem pode ser usada parte do nome.</font>
-				</form>
-			</fieldset>
+				<br><br>
+				<fieldset class="fieldset_style">
+					Pesquisar por nome:<br><br>
+					<form name="filtro" method="POST" action="filtroCliente.php">
+						Nome: <input type="text" name="nome" size="30"><br><br>
+						<input type="submit" value="pesquisar"><br><br>
+						<font color="red">Obs: Tambem pode ser usada parte do nome.</font>
+					</form>
+				</fieldset>
 			</center>
 			</font>
-		<br><br><br><br><br><br><br><br><br><br><br>
-		<hr>
-		<a href="centralAdm.php"><font color="white"> Voltar >> </font></a>
+			<hr>
+			<a href="centralAdm.php"><font color="white"> Voltar >> </font></a>
 		</center>
-		</div>
-			
-		<div class="rodape">
-			<font color="white" face="Berlin Sans FB"> 
-			<center><b><br><br>
-			<font size="4">
-			Desenvolvido por:<br>
-			-Luis Gustavo Rangel Bicudo Ribeiro<br>
-			-Matheus Nunes<br>
-			-Andre Filipe<br>
-			-Vitor Kanashiro
-			</font>
-			</b></center>
-			</font>
-		</div>
 	</div>
-</body>
-</html>
+			
+<?php
+	require 'include/footer.php';
+?>

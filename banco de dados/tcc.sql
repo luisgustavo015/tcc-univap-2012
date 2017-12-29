@@ -1,23 +1,23 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.5
--- http://www.phpmyadmin.net
+-- version 4.6.4
+-- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tempo de Geração: 05/10/2012 às 04h33min
--- Versão do Servidor: 5.5.16
--- Versão do PHP: 5.3.8
+-- Host: 127.0.0.1
+-- Generation Time: 29-Dez-2017 às 19:46
+-- Versão do servidor: 5.7.14
+-- PHP Version: 5.6.25
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Banco de Dados: `tcc`
+-- Database: `tcc`
 --
 
 -- --------------------------------------------------------
@@ -26,7 +26,7 @@ SET time_zone = "+00:00";
 -- Estrutura da tabela `amigos`
 --
 
-CREATE TABLE IF NOT EXISTS `amigos` (
+CREATE TABLE `amigos` (
   `cod_cliente` int(4) NOT NULL,
   `cod_amigo` int(4) NOT NULL,
   `data` varchar(10) NOT NULL
@@ -37,25 +37,8 @@ CREATE TABLE IF NOT EXISTS `amigos` (
 --
 
 INSERT INTO `amigos` (`cod_cliente`, `cod_amigo`, `data`) VALUES
-(2, 8, '13/09/2012'),
-(2, 9, '13/09/2012'),
-(11, 2, '13/09/2012'),
-(11, 1, '13/09/2012'),
-(11, 9, '13/09/2012'),
-(2, 9, '14/09/2012'),
-(12, 1, '20/09/2012'),
-(2, 7, '28/09/2012'),
-(4, 2, '28/09/2012'),
-(2, 4, '28/09/2012'),
-(17, 1, '28/09/2012'),
-(2, 17, '28/09/2012'),
-(18, 1, '28/09/2012'),
-(19, 1, '29/09/2012'),
-(19, 1, '29/09/2012'),
-(20, 2, '29/09/2012'),
-(20, 1, '29/09/2012'),
-(20, 9, '29/09/2012'),
-(20, 19, '29/09/2012');
+(22, 21, '29/12/2017'),
+(22, 25, '29/12/2017');
 
 -- --------------------------------------------------------
 
@@ -63,14 +46,13 @@ INSERT INTO `amigos` (`cod_cliente`, `cod_amigo`, `data`) VALUES
 -- Estrutura da tabela `carrinho`
 --
 
-CREATE TABLE IF NOT EXISTS `carrinho` (
-  `cod_reserva` int(3) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE `carrinho` (
+  `cod_reserva` int(3) UNSIGNED NOT NULL,
   `cod_produto` int(3) NOT NULL,
   `cod_cliente` int(3) NOT NULL,
   `data` varchar(10) NOT NULL,
-  `quantidade` int(3) NOT NULL,
-  PRIMARY KEY (`cod_reserva`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+  `quantidade` int(3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `carrinho`
@@ -98,41 +80,33 @@ INSERT INTO `carrinho` (`cod_reserva`, `cod_produto`, `cod_cliente`, `data`, `qu
 -- Estrutura da tabela `cliente`
 --
 
-CREATE TABLE IF NOT EXISTS `cliente` (
-  `cod_cliente` int(3) unsigned NOT NULL AUTO_INCREMENT,
-  `nome` varchar(60) NOT NULL,
-  `data_nascimento` varchar(10) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `login` varchar(45) NOT NULL,
-  `senha` varchar(40) NOT NULL,
-  `sexo` varchar(40) NOT NULL,
-  `data_cadastro` varchar(10) NOT NULL,
+CREATE TABLE `cliente` (
+  `cod_cliente` int(3) UNSIGNED NOT NULL,
+  `nome` varchar(60) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `data_nascimento` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `login` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `senha` varchar(40) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `sexo` varchar(40) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `data_cadastro` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `nivel` int(1) NOT NULL DEFAULT '1',
   `ativo` int(1) NOT NULL DEFAULT '1',
-  `foto` varchar(250) NOT NULL,
-  `frasePerfil` varchar(60) NOT NULL DEFAULT '',
-  PRIMARY KEY (`cod_cliente`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
+  `foto` varchar(250) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `frasePerfil` varchar(60) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `cliente`
 --
 
 INSERT INTO `cliente` (`cod_cliente`, `nome`, `data_nascimento`, `email`, `login`, `senha`, `sexo`, `data_cadastro`, `nivel`, `ativo`, `foto`, `frasePerfil`) VALUES
-(1, 'Luis Gustavo Rangel', '11/05/1995', 'luisgustavo_015@hotmail.com', 'adm', 'adm', 'masculino', '', 2, 1, 'upload/User1.png', ''),
-(2, 'Thiago Rangel', '21/02/2002', 'thi.rangel@hotmail.com', 'thiago', 'thiago123', '', '', 1, 1, 'upload/Lighthouse.jpg', 'Eu adoro games !!!'),
-(4, 'João', '18/09/1996', 'joao@teste.com', 'joao', 'joao', 'masculino', '', 1, 1, 'upload/User1.png', 'h'),
-(7, 'Gabriel', '28/07/1998', 'gabriel@teste.com', 'gabriel', 'gabriel123', 'masculino', '', 1, 1, 'upload/User1.png', ''),
-(8, 'Rogerio', '00/00/0000', 'rogerio@teste.com', 'rogerio', 'rogerio123', '', '', 2, 1, 'upload/User1.png', ''),
-(9, 'Sandro', '14/10/1994', 'sandro@teste.com', 'sandro', 'sandro123', 'masculino', '', 1, 1, 'upload/User1.png', ''),
-(10, 'Adriano', '15/04/1994', 'adriano@teste.com', 'adriano', 'adriano123', 'masculino', '25/07/2012', 1, 1, 'upload/User1.png', ''),
-(11, 'Alexandre Gonçalves Lemes', '28/02/1987', 'alexandre@hotmail.com', 'alexandre', 'alexandre123', 'masculino', '13/09/2012', 1, 1, 'upload/User1.png', 'HAHAHAHAHAHA ;D'),
-(12, 'Sandro Luiz', '14/04//199', 'sandrin@hotmail.com', 'sandrin', 'sandrin', 'masculino', '20/09/2012', 1, 1, 'upload/1078capa_ps3.jpg', ''),
-(15, 'João Verlene Bernardes junior', '01/03/1996', 'naoedasuaconta@hotmail.com', 'jbernardes', 'coco', 'masculino', '28/09/2012', 1, 1, 'upload/User1.png', ''),
-(17, 'luciano', '03/10/2000', 'luciano_uivio@hotmail.com', 'lu123', '123456', 'masculino', '28/09/2012', 1, 1, 'upload/4277.jpg', 'yfcrvbd'),
-(18, 'antonio', '25/01/1996', 'antonio.cavalcanti@hotmail.com', 'tonho', 'mslj0305', 'masculino', '28/09/2012', 1, 1, 'upload/User1.png', ''),
-(19, 'Lucas Mancilha Leite', '11/07/1995', 'lukas.mancilha@hotmail.com', '@_LuuHMancilha', 'lukas2012', 'masculino', '29/09/2012', 1, 1, 'upload/User1.png', 'kdfunvk'),
-(20, 'Igor Branco Ferreira', '15/10/1996', 'igor-pml@hotmail.com', 'negao_30cm', '123456', 'masculino', '29/09/2012', 1, 1, 'upload/Camiseta 13 anos branca.jpg', 'Eu nasci a 10 mil anos atrás ');
+(21, 'Luis Gustavo', '11/05/1995', 'adm@adm.com', 'adm', 'adm', 'masculino', '29/12/2017', 2, 1, 'upload/User1.png', ''),
+(22, 'joao abreu', '25/06/1988', 'joao@teste.com', 'joao', 'joao', 'masculino', '29/12/2017', 1, 1, 'upload/User1.png', ''),
+(23, 'Carlos Andrade', '10/04/1985', 'carlos@teste.com', 'carlos', 'carlos', 'masculino', '29/12/2017', 1, 1, 'upload/User1.png', ''),
+(24, 'JoÃ£o Fernandes', '14/07/1991', 'fernandes@teste.com', 'fernandes', 'fernandes', 'masculino', '29/12/2017', 1, 1, 'upload/User1.png', ''),
+(25, 'MÃ¡rcio Santos', '18/11/1974', 'marcio@teste.com', 'marcio', 'marcio', 'masculino', '29/12/2017', 1, 1, 'upload/User1.png', ''),
+(26, 'Rubens Junior', '15/04/1994', 'rubens@teste.com', 'rubens', 'rubens', 'masculino', '29/12/2017', 1, 1, 'upload/User1.png', ''),
+(27, 'AntÃ´nio Nascimento', '26/08/1998', 'antonio@teste.com', 'antonio', 'antonio', 'masculino', '29/12/2017', 1, 1, 'upload/User1.png', '');
 
 -- --------------------------------------------------------
 
@@ -140,32 +114,29 @@ INSERT INTO `cliente` (`cod_cliente`, `nome`, `data_nascimento`, `email`, `login
 -- Estrutura da tabela `noticia`
 --
 
-CREATE TABLE IF NOT EXISTS `noticia` (
-  `cod_noticia` int(3) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE `noticia` (
+  `cod_noticia` int(3) UNSIGNED NOT NULL,
   `cod_produto` int(3) NOT NULL,
-  `titulo` varchar(200) NOT NULL,
-  `descricao` text NOT NULL,
-  `imagem` varchar(200) NOT NULL,
-  `data` varchar(10) NOT NULL,
-  PRIMARY KEY (`cod_noticia`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
+  `titulo` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `descricao` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `imagem` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `data` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `noticia`
 --
 
 INSERT INTO `noticia` (`cod_noticia`, `cod_produto`, `titulo`, `descricao`, `imagem`, `data`) VALUES
-(12, 0, 'Call of Duty Elite é renovado para Black Ops II; vídeo do multi, bots e mais', 'O site oficial de "Call of Duty Elite", o programa que você pode assinar para receber os DLCs de Call of Duty e diversas exclusividades, foi renovado para a chegada de Black Ops II. Você pode conferir a lista de mudanças clicando aqui e o site oficial do programa, aqui. \r\n\r\nAlém disso, de acordo com o site Joystiq, para incentivar os jogadores que mais vêem "Kill Cams" do que o próprio jogo (ou seja, morrem o tempo todo), a Treyarch focou sua atenção no Combat Training, introduzindo o básico do multiplayer em um modo que o jogador pode jogar contra bots. \r\n\r\nNo Combat Training, você também pode ganhar XP e mesclar jogadores e bots. Mas só pode evoluir até o nível 10, até entender tudo que conseguir. Se ainda assim os jogadores não se sentirem confortáveis e partir para o online, eles podem continuar no Combat Training e jogar o modo "Objective" onde há competições de dois times de seis jogadores (3 humanos e 3 bots). Aqui eles podem evoluir acima do nível 10, mas só receberão metade do XP que receberia normalmente. \r\n\r\nPor fim, o "Bot Stomp" é uma experiência que não ganha XP e é onde seis jogadores humanos enfrentam seis bots em qualquer tipo de gameplay que desejarem. \r\n', 'noticias/6876.jpg', '28/09/2012'),
-(13, 0, 'Revelado, Watch Dogs com legendas em português-Br', 'A notícia foi anunciada pelo diretor da Ubisoft Brasil, Bertand Chaverot. Segundo ele, as legendas e os menus estarão em nosso idioma, além disso, explica que a possibilidade de Watch Dogs chegar ao mercado com dublagem em Português não foi descartada, mas é precisa levar em conta alguns fatores externos para torná-lo viável. Para ele, as vozes serão traduzidas somente se os gastos no local sejam "amortecidos", e se isso não impede que o título chegue na mesma data que os Estados Unidos. \r\n\r\nE sobre o mistério da plataforma de lançamento, o diretor da Ubisoft não quis falar muito, se limita a dizer que o título tem "cheiro de nova geração".\r\n', 'noticias/Watch-Dogs.jpg', '28/09/2012'),
-(14, 0, 'Phantasy Star Online 2 Novo Sistema de subclasse e a Ruins', 'A segunda apresentação do PSO2 na Tokyo Game Show 2012 mostrou a versão para smartphone do PSO2 chamada de Phantasy Star Online 2 es. Depois, finalmente foi mostrado algumas cenas da nova Fase e do novo Chefe. Este é um resumo de informações pegada dos sites 4Gamer e Shougai. \r\nA próxima Fase que está chegando no PSO2 é chamada de "??" de ruins, é uma fase no planeta Naberius e coberta por plantas. O Chefe desta Nova fase é o ??????? Zeshreida que se parece com uma estrela do mar só que do mal. Esta fase é repleta de darkers. \r\nEm seguida, eles mostraram o trailer do próximo update do jogo o "Call of Mortality", que será lançado em outubro. Esta é atualização é focada no sistema de subclasse. \r\nO novo sistema de subclasse permite que você utilize duas classes, ao mesmo tempo. Você poderá ser um Hunter/Force, Ranger/Hunter ou Fighter/Gunner. Você pode usar os poderes das subclasse como as " photon arts, technics, e skills mas há um porém. Você só pode usar as armas da sua classe principal. \r\n\r\nEntão, como um Hunter vai usar o weak bullet quando só os Assault Rifles podem usar essa habilidade? A uma falha no sistema de subclasse dependente das armas que podem ser equipadas por todas as classes. Por exemplo, se você é um Hunter/Ranger, você pode usar o weak bullet usando o Bouquet Rifle , então é só você mudar o tipo de arma do Hunter para atacar usando essa habilidade. \r\n\r\nTeremos um novo modo de dificuldade o Very Hard em outubro, nesta dificuldade, você poderá encontrar Chefes raros como King Vardha e o Rock Belt. Agora podem Esperar por armas superiores a 10 estrelas, Novas PAs e Technics, e novos eventos de interrupção.\r\n', 'noticias/yjyj.jpg', '28/09/2012'),
-(15, 0, 'FIFA 13 vende 353.000 cópias nas primeiras 24 horas', 'A EA anunciou um dia da abertura o recorde do título FIFA Soccer 13. Em suas primeiras 24 horas de venda, 353 mil cópias de FIFA 13 foram vendidos para Xbox 360 e PlayStation 3 na América do Norte, marcando um aumento de 42% em relação ao FIFA 12. Mais de 1,4 milhões de jogos on-line foram disputadas no primeiro dia, 35% a mais que no ano passado. \r\nA versão do iPhone também viu números grandes dia de abertura, marcando "o maior desempenho em lançamento global de qualquer jogo iOS no iPhone, iPad e iPod touch na história da EA." As vendas de Fifa 13 subiram 62% no iOS, tornando-se o número um nos top jogos pagos em 55 países na App Store e o jogo de maior bilheteria em 24 países.\r\n"Estamos emocionados que os fãs da América do Norte adotaram FIFA Soccer 13 de maneira tão grande", disse o vice-presidente executivo da EA Sports Andrew Wilson. "Os norte-americanos apreciam um grande jogo e seu nível de envolvimento com o nosso jogo está ajudando a impulsionar a popularidade do esporte nos Estados Unidos." \r\n\r\nAté agora, FIFA 13 só foi lançado na América do Norte e vai lançar no resto do mundo amanhã. A EA já anunciou promissores números de pré-venda para FIFA 13, com 1,3 milhões de cópias pré-ordenadas em todo o mundo. Isso marca a continuação de um grande mês para a EA Sports, com 1,6 milhões de cópias de Madden 13 vendidos e recordes de vendas para NHL 13.', 'noticias/FIFA13_64213_screen.jpg', '28/09/2012'),
-(16, 0, 'Need For Speed: Most Wanted PC - DX11 oferece um desempenho 300% melhor do que DX9', 'Boa notícia para todos os fãs de corrida de PC, parece que a Criterion irá otimizar ainda mais a versão PC do seu próximo jogo, Need For Speed: Most Wanted. Em uma entrevista interessante com games.on.net, Leanne Loombe da Criterion revelou que a versão para PC de Need For Speed: Most Wanted irá ostentar alguns recursos exclusivos gráficos e que o DX11 vai oferecer um desempenho 300% melhor do que DX9.\r\nLoombe também revelou as características que a Criterion tem implementado na versão PC de NFS: MW. A versão PC suportará oclusão de ambiente(AO) em tempo real, assim como os algoritmos de espalhamento de luz. \r\n\r\nAlém disso, NFS: MW PC contará com uma série de recursos avançados de gráficos, incluindo SSAO, espalhamento de luz, high dynamic range motion blur, texturas de alta resolução, modelos avançados de iluminação especular, projeção de sombra do farol, qualidade VFX aprimorada, e níveis de qualidade aprimorada de sombra. \r\n\r\nNeed For Speed: Most Wanted está planejado para 02 de novembro para PC, X360 e PS3!', 'noticias/nfsmwint2.jpg', '28/09/2012'),
-(17, 0, 'Wii U Sai Por R$ 1.500 No Brasil', 'Quem espera adquirir o Nintendo Wii U em terras brasileiras antes do natal deste ano já pode comprar o novo console pelo preço inicial de R$ 1.350. Apesar de a Gaming do Brasil (distribuidora oficial da Nintendo no país) ainda não ter dito quanto será cobrado pelo aparelho, diversos vendedores de sites como o Mercado Livre já oferecem o novo produto. \r\n\r\nEnquanto o modelo básico está sendo comercializado pelos já citados R$ 1.350, a versão Deluxe, que acompanha o game Nintendo Land, sai por cerca de R$ 1.500. Os preços não chegam a ser exatamente surpreendentes quando se leva em conta o histórico da inflação que o valor cobrado por consoles sofre no Brasil. \r\n\r\nPara efeitos de comparação, quando o PlayStation 3 chegou às terras nacionais, empresas como as Lojas Americanas chegaram a cobrar R$ 7.980 pelo console. \r\n\r\nNos Estados Unidos, o preço era de US$ 600, aproximadamente R$ 1.200. Resta esperar pelo lançamento brasileiro oficial do Nintendo Wii U para conferir se a história vai se repetir ou se o preço do aparelho vai ser semelhante àquele praticado em terras estrangeiras.', 'noticias/Wii-U-001.jpg', '28/09/2012'),
-(18, 0, 'Estudantes europeus competem para ganhar licença da nova Unreal Engine 4', 'A Epic Games anunciou a edição desse ano da competição Make Something Unreal. Nela, estudantes de toda a Europa devem enviar seus jogos criados com a Unreal Engine para serem avaliados pela companhia. O melhor de todos leva uma licença da nova Unreal Engine 4.\r\nO tema desse ano é “Herança Mendeliana: genética e genoma” e os participantes terão até o dia 2 de novembro para enviar as suas criações para a Epic. Mais informações podem ser encontradas no site oficial da competição.', 'noticias/content_pic.jpg', '04/10/2012'),
-(19, 0, 'Borderlands 3 não está em desenvolvimento, diz fundador da Gearbox', 'O fundador da Gearbox Software  Randy Pitchford, veio a público (via Twitter) recentemente para dizer com todas as letras: Borderlands 3 ainda não está em desenvolvimento. Além disso, Pitchford pediu para que os espalhadores de rumores internet afora para se acalmarem.\r\n“Relaxe, internet. Ninguém trabalha atualmente em uma sequência para Borderlands 2  É divertido falar e pensar, mas os nossos esforços atuais estão focados nos DLCs de Borderlands 2, em Aliens etc.” Em outras palavras, todo o desenvolvimento relacionado à série “está relacionado a Borderlands 2”.\r\nNaturalmente, Pitchford reconhece que os planos podem se alterar em algum momento. “Eu espero que isso mude em determinado ponto, mas não se trata do status atual”. A ideia de que o próximo Borderlands poderia estar em desenvolvimento surgiu recentemente, quando o roteirista da franquia soltou que a Gearbox Software já começava a planejar uma sequência.', 'noticias/img_normal (1).jpg', '04/10/2012'),
-(20, 0, 'Capcom instrui jogadores sobre como corrigir erro em Resident Evil 6', 'Resident Evil 6 só chega amanhã ao Brasil, mas seu lançamento mundial já está deixando muitos fãs de cabelo em pé. Não por causa dos sustos dados pelos monstrengos durante a jogatina, e sim pela série de defeitos e bugs que estão batendo de frente com a paciência dos fãs mais calmos.\r\nO problema é que alguns jogadores que adquiriram o game para o PlayStation 3 no período de pré-compra não estão conseguindo logar no jogo. Assim que o download termina, a tela é tomada por uma mensagem exibindo um “error 80029513”, que aponta para problemas ocorridos durante o download na PSN.\r\nA Capcom se manifestou ao site IGN, emitindo um comunicado oficial, no qual ela alega reconhecer os problemas que estão ocorrendo. No entanto, essas deficiências devem estar sendo enfrentadas somente por aqueles jogadores que adquiriram as primeiras versões disponibilizadas na PSN — assim que o jogo foi lançado. A desenvolvedora também alertou que essas mesmas pessoas ainda não conseguirão acessar o ResidentEvil.net.\r\nAgora, a empresa está trabalhando em conjunto com a Sony para entregar o quanto antes um patch de correção, para que o game possa funcionar de maneira adequada. De momento, a Capcom instrui aqueles que presenciaram a tela de erro para desinstalar e baixar novamente o jogo. Isso fará com que o título não faça o download de um determinado patch (o culpado pelo ocorrido) e que possa funcionar normalmente.', 'noticias/img_normal (2).jpg', '04/10/2012'),
-(21, 0, 'Resident Evil 6: Capcom comenta escolha pelo caminho da ação e vontade dos fãs', 'Em entrevista ao PlayStation Blog, o produtor de Resident Evil 6, Hiroyuki Kobayashi, afirmou que a Capcom e os fãs da franquia são como os pais de uma criança. Da mesma forma como nem sempre é possível concordar sobre qual a melhor maneira de educar os filhos, os fãs e a empresa nem sempre acreditam que as mesmas decisões são as melhores para a série.\r\nKobayashi, no entanto, garante que a companhia está sempre averiguando o feedback de seus consumidores e tudo é sempre levado em consideração na hora da produção dos games. No entanto, a empresa tem a responsabilidade (e a pressão) de entregar novas experiências aos jogadores – algo que acaba gerando as discordâncias com o público.\r\nApelo para as massas\r\nAs declarações de Kobayashi seguiram-se a uma entrevista do produtor ao site 1UP na qual Kobayashi afirmou que, ao produzir Resident Evil 6, a Capcom tentou ser o mais inclusiva possível.\r\nSegundo o diretor, manter o clima de terror e tentar criar um jogo que seja inclusivo foi um grande desafio. “Incluir o tipo certo de ação para o game não quebrar o ritmo é o mais complicado. O que nós realmente queremos em Resident Evil 6 é um diagrama de Venn que inclua pessoas que gostem de horror e pessoas que gostem de video games e Resident Evil!, explicou.\r\nResident Evil 6 foi lançado na última terça-feira, dia 2, para PlayStation 3 e Xbox 360. Você poderá conferir a análise completa do game a partir desta quinta, aqui no Baixaki Jogos!', 'noticias/img_normal (3).jpg', '04/10/2012'),
-(22, 0, 'Criadora de Minecraft tem o escritório mais estiloso da Suécia ', 'Se você não acha o seu ambiente de trabalho muito confortável ou tão atraente como deveria ser, que tal trabalhar para os desenvolvedores de Minecraft e passar o dia no escritório mais estiloso da Suécia?\r\nA Mojang Specifications teve algumas imagens do ambiente de trabalho que seus colaboradores compartilham divulgadas na internet e surpreendeu muita gente nos fóruns. Na galeria, você pode ver a “perfeita harmonia” entre uma mesa de sinuca e diversas peças de Lego tudo no mais alto estilo.\r\nApesar de mais parecer um bar bastante pomposo, o escritório da empresa chama atenção justamente por ser diferente do que se vê em toda parte, principalmente quando se fala no mundo dos games. E você? O que achou do local de trabalho dos criadores de Minecraft?', 'noticias/content_pic (1).jpg', '04/10/2012');
+(23, 999, 'Fim de uma era: serviÃ§os online de Gran Turismo 6 serÃ£o desativados em 2018', '\r\n\r\nSem dÃºvidas, Gran Turismo 6 foi um dos grandes games de PlayStation 3 â€“ e ainda Ã© para muitos que estÃ£o na geraÃ§Ã£o passada. Portanto, temos uma mÃ¡ notÃ­cia para vocÃª: os serviÃ§os online do jogo serÃ£o desativados em 2018 (mais precisamente no dia 28 de marÃ§o de 2018).\r\n\r\nMas o que isso significa exatamente? Na verdade, sÃ£o um compilado de elementos que serÃ£o desativados, com alguns menos importantes e outros essenciais para a diversÃ£o. Confira abaixo a lista de coisas que deixarÃ£o de funcionar no game:\r\n\r\n    Comunidade\r\n    Lobby aberto\r\n    Partida rÃ¡pida\r\n    Eventos sazonais\r\n\r\nA equipe reforÃ§a tambÃ©m para que os jogadores peÃ§am o reembolso dos crÃ©ditos in-game ou que os instalem novamente (caso tenham deletado). Caso os usuÃ¡rios nÃ£o faÃ§am isso atÃ© o dia 28 de marÃ§o, nÃ£o serÃ¡ possÃ­vel recuperar esses crÃ©ditos. AlÃ©m disso, o app de editor de pistas para Android e iOS tambÃ©m serÃ¡ desativado na data. PorÃ©m, todo o conteÃºdo offline de Gran Turismo 6 continuarÃ¡ funcionando normalmente, como Ã© esperado.\r\n', 'noticias/28142934287002.jpg', '29/12/2017'),
+(24, 999, 'Double Dragon IV estÃ¡ disponÃ­vel a partir de hoje para Android e iOS', 'Double Dragon em 8 bits parece ser algo que foi lanÃ§ado hÃ¡ dÃ©cadas, mas nÃ£o Ã© exatamente esse o caso. Assim como a Capcom fez com Mega Man 9 e 10 no Wii, a Arc System Works lanÃ§ou em pleno 2017 Double Dragon IV, com visuais bem retrÃ´, para o PS4, PC e Switch. Agora, ele chega ao mobile tambÃ©m.', 'noticias/28130036769049.jpg', '29/12/2017'),
+(25, 999, 'Desenvolvedores da Sony japonesa prometem projetos e games novos para 2018', 'Apesar de a Sony ser uma empresa bem globalizada nos dias de hoje, o setor japonÃªs nÃ£o sÃ³ continua firme e forte como tambÃ©m Ã© um dos principais da empresa. Por isso Ã© bem interessante saber que os desenvolvedores da Terra do Sol Nascente estÃ£o com planos interessantes para 2018.\r\n\r\nDurante uma entrevista ao site japonÃªs 4Gamer, diversos produtores comentaram quais sÃ£o os planos para o ano que vem. Por exemplo: Teruyuki Toriyama, produtor de Bloodborne e de No Heroes Allowed! VR, disse que estÃ¡ interessado em embarcar em novos desafios e que revelarÃ¡ um jogo ambicioso e o comeÃ§o de um projeto que estarÃ¡ na fase conceitual. Toriyama esteve trabalhando atrÃ¡s das cortinas depois de Bloodborne e os resultados serÃ£o revelados no ano que vem.', 'noticias/28122738475041.jpg', '29/12/2017'),
+(26, 999, 'Framboesa de Ouro: confira os piores jogos de 2017', 'Sem dÃºvidas, 2017 teve uma lista enorme de jogos maravilhosos (a seleÃ§Ã£o dos indicados ao Game of the Year que o diga).  PorÃ©m, isso tambÃ©m nÃ£o quer dizer que o universo sÃ£o apenas flores. O que teve de coisa boa, teve de coisa ruim tambÃ©m. Claro, o saldo final foi bem positivo, mas tivemos alguns games bem abaixo do esperado nesse perÃ­odo.\r\n\r\nPor conta disso, vamos fazer essa lista para relembrar quais foram os fracassos, decepÃ§Ãµes e games abaixo da mÃ©dia de 2017. Nem todos sÃ£o necessariamente aquela bomba que vocÃª espera, mas, certamente, nÃ£o atenderam Ã s expectativas de uma maneira satisfatÃ³ria. EntÃ£o vem com a gente conferir a lista!', 'noticias/28200556009014.jpg', '29/12/2017'),
+(27, 999, 'SerÃ¡? Red Dead Redemption 2 ganha data de lanÃ§amento em loja dinamarquesa', 'Um dos jogos mais aguardados de 2018 Ã©, sem dÃºvidas, Red Dead Redemption 2. Depois de ter sido adiado para a primavera do ano que vem, muitos se perguntam: quando ele sai exatamente? NÃ£o sabemos, mas uma loja dinamarquesa pode saber e ter vazado sem querer.\r\n\r\nSegundo a pÃ¡gina do produto na loja, Red Dead Redemption 2 sairia no dia 8 de junho de 2018, uma sexta-feira. A data estÃ¡ dentro da janela de tempo estipulada e cairia numa sexta-feira, um dia que, ao lado das terÃ§as, Ã© comum para lanÃ§amentos.', 'noticias/29123112294006.jpg', '29/12/2017'),
+(28, 999, 'Produtor da sÃ©rie Yakuza diz que teremos surpresas e novos jogos em 2018', 'Com o caminhar das notÃ­cias desse fim de ano, parece que 2018 nÃ£o serÃ¡ nada fraco. Agora, o produtor executivo da sÃ©rie Yakuza e o chefe criativo da Sega, Toshihiro Nagoshi, disse em uma entrevista recente ao site japonÃªs 4Gamer que 2018 trarÃ¡ surpresas e anÃºncios. O que serÃ¡ vem que por aÃ­?\r\n\r\nSegundo o executivo, o time estarÃ¡ muito focado em produzir e entregar os games jÃ¡ anunciados, como Hokuto Ga Gotoku (de Fist of the North Star) e provavelmente o novo Yakuza, que jÃ¡ teve alguns detalhes confirmados. PorÃ©m, hÃ¡ novidades vindo tambÃ©m. De acordo com Nagoshi, hÃ¡ coisas novas no forno, mas a empresa nÃ£o sabe bem qual Ã© a melhor hora de revelÃ¡-las em 2018. Vale ressaltar: o que quer que possa ser revelado nÃ£o necessariamente tem relaÃ§Ã£o com a sÃ©rie Yakuza.', 'noticias/29150645710049.jpg', '29/12/2017'),
+(29, 999, 'CyberConnect2, dev de Naruto e jogos de anime, revelarÃ¡ novos games em 2018', 'VocÃª jÃ¡ deve ter ouvido falar da CyberConnect2, principalmente se for fÃ£ de animes. AlÃ©m de jÃ¡ ter trabalhado em vÃ¡rios jogos de Naruto, a desenvolvedora jÃ¡ mexeu com JoJo, .hack e atÃ© games originais, como Asuraâ€™s Wrath. Agora, o presidente da companhia, Hiroshi Matsuyama, disse que revelarÃ¡ algo novo em fevereiro de 2018.\r\n\r\nSegundo o presidente, a revelaÃ§Ã£o vai ocorrer no dia 1 de fevereiro, o que deixa a novidade ainda mais prÃ³xima. Trata-se de um evento da desenvolvedora que mostrarÃ¡ alguns planos para o futuro da empresa que, como vocÃªs devem imaginar, tambÃ©m envolve novos jogos.', 'noticias/29125348813028.jpg', '29/12/2017'),
+(30, 999, 'Dynasty Warriors 9 revela diversos personagens e ganha muitos gameplays', 'Apesar de ter ficado sem muitos detalhes (e atÃ© sem data) durante um bom tempo, Dynasty Warriors 9 finalmente ganhou diversos novos detalhes. AlÃ©m de revelar muitos personagens de uma sÃ³ vez, a Koei Tecmo, produtora do tÃ­tulo, tambÃ©m soltou muitos gameplays.\r\n\r\nNas imagens abaixo, vocÃª confere imagens Yue Jin, Lianshi, Guan Xing, Fa Zheng, e Zhong Hui. AlÃ©m disso, Ã© possÃ­vel ver detalhes da jogabilidade de cada um deles logo em seguida, trazendo a porradaria clÃ¡ssica que conhecemos da franquia. Confira:', 'noticias/28144849674014.jpg', '29/12/2017'),
+(31, 999, 'Gran Turismo Sport receberÃ¡ updates no futuro para trazer chuva Ã s pistas', 'Atualmente, apenas uma pista de Gran Turismo Sport tem suporte ao clima chuvoso: Northern Isle Speedway (que nem Ã© uma chuva propriamente dita). Considerando que os principais concorrentes, Project Cars 2 e Forza Motorsport 7, tÃªm um excelente sistema de chuva (que Ã© dinÃ¢mico), o jogo da Sony ficou para trÃ¡s. PorÃ©m, parece que a desenvolvedora estÃ¡ ciente disso e quer corrigir o problema.\r\n\r\nSegundo Kazunori Yamauchi, criador da sÃ©rie, todos os carros do game foram produzidos para funcionarem com mecÃ¢nicas de FÃ­sica de chuva (incluindo animaÃ§Ãµes para limpar os para-brisa) e que mais pistas terÃ£o suporte no futuro. Os dados foram revelados durante uma entrevista ao site GT Planet.', 'noticias/28164858109047.jpg', '29/12/2017');
 
 -- --------------------------------------------------------
 
@@ -173,35 +144,86 @@ INSERT INTO `noticia` (`cod_noticia`, `cod_produto`, `titulo`, `descricao`, `ima
 -- Estrutura da tabela `produtos`
 --
 
-CREATE TABLE IF NOT EXISTS `produtos` (
-  `cod_produto` int(3) unsigned NOT NULL AUTO_INCREMENT,
-  `nome` varchar(50) NOT NULL,
+CREATE TABLE `produtos` (
+  `cod_produto` int(3) UNSIGNED NOT NULL,
+  `nome` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `preco_c` double NOT NULL,
   `preco_v` double NOT NULL,
-  `descricao` text NOT NULL,
+  `descricao` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `estoque` int(3) NOT NULL,
-  `plataforma` varchar(25) NOT NULL,
-  `imagem` varchar(500) NOT NULL,
-  PRIMARY KEY (`cod_produto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=14 ;
+  `plataforma` varchar(25) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `imagem` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `produtos`
 --
 
 INSERT INTO `produtos` (`cod_produto`, `nome`, `preco_c`, `preco_v`, `descricao`, `estoque`, `plataforma`, `imagem`) VALUES
-(2, 'Little Big Planet 2', 120, 160, 'jogo para crianças', 5, 'PS3', 'produtos/LBP2.jpg'),
-(3, 'Battlefield 3', 120, 179.9, 'Jogo de tiro em primeira pessoa.', 8, 'XBOX360', 'produtos/battlefield3XBOX360.jpg'),
-(4, 'Call of Duty MW 2', 100, 140, 'Jogo mt loko.', 2, 'XBOX360', 'produtos/250px-Modern_Warfare_2_cover.PNG'),
-(5, 'The Elder Scrolls V Skyrim', 100, 200, 'Melhor RPG de Todos!!', 2, 'PS3', 'produtos/1078capa_ps3.jpg'),
-(6, 'Max Payne 3', 50, 100, 'bom', 4, 'PC', 'produtos/51bLDO97AXL._AA300_.jpg'),
-(7, 'Call of Duty 4 Modern Warfare', 40, 80, '+-', 6, 'XBOX360', 'produtos/Capa_Call_Of_Duty_Modern_Warfare_Xbox360__37150_zoom.jpg'),
-(8, 'GTA IV', 10, 140, 'sdbisibi', 3, 'PS3', 'produtos/600full-grand-theft-auto-iv-cover.jpg'),
-(9, 'God Of War 3', 1, 10, 'bbwbbb', 1, 'PS3', 'produtos/20100905182531!God_of_War_III_Capa.jpg'),
-(11, 'Call of Duty: Modern Warfare 3', 120, 160, 'Jogo de guerra em 1ª Pessoa', 5, 'PC', 'produtos/CODMW3.jpg'),
-(12, 'Darksiders', 80, 100, 'Nenhuma', 4, 'PS3', 'produtos/Darksidera.jpg'),
-(13, 'Fórmula 1 2011', 50, 100, 'Simulador de Fórmula 1.', 3, 'PS3', 'produtos/F1 2011.jpg');
+(14, 'Adidas miCoach', 80, 100, 'Quer ficar mais rÃ¡pido, mais forte e melhor que os demais? Deixe que o miCoach reÃºna seus dados durante treinos ou competiÃ§Ãµes, identifique seu potencial e o estenda por meio de programas ideais para aumentar sua velocidade, resistÃªncia e forÃ§a.', 2, 'PS3', 'produtos/8758_1_20141019115026.jpg'),
+(15, 'Assassins Creed 2 (II)', 60, 94.9, 'VocÃª assume o papel de Ezio Auditore Di Firenzi, um nobre, agora assassino, que busca vinganÃ§a pela morte de sua famÃ­lia.', 1, 'PS3', 'produtos/1263_1_20140217152031.jpg'),
+(16, 'Batman: Arkham City Game of the Year Edition', 89.9, 115, 'Batman Arkham City Ã© o sucessor do cÃ©lebre Batman Arkham Asylum. Em vez de concentrar a experiÃªncia de jogo dentro dos muros do clÃ¡ssico asilo de super-vilÃµes, Arkham City toma como palco uma ampla Ã¡rea de Gotham City.', 3, 'PS3', 'produtos/4561_1_20120923221401.jpg'),
+(17, 'Bodycount', 49.9, 89.9, 'Bodycount Ã© um FPS (jogo de tiro em perspectiva de primeira pessoa) que coloca os jogadores em uma legÃ­tima confusÃ£o de tiroteios e explosÃµes em cenÃ¡rios destrutÃ­veis. Pois Ã©: nÃ£o procure cobertura de fogo atrÃ¡s de objetos que podem ser facilmente destroÃ§ados por disparos nervosos dos seus oponentes.', 2, 'PS3', 'produtos/6774_1_20130830010432.jpg'),
+(18, 'Brink', 69.9, 99.9, 'O jogo Ã© ambientado em Ark, uma cidade flutuante erguida pelo homem que estÃ¡ Ã  beira de uma guerra civil. Originalmente construÃ­da como um experimento, auto-suficiente e 100% "verde", devido ao aquecimento global, o aumento no volume dos oceanos da Terra transformou Ark em moradia, nÃ£o apenas de seus fundadores e seus descendentes, mas tambÃ©m para milhares de refugiados. ', 5, 'PS3', 'produtos/2684_1.jpg'),
+(19, 'Call of Duty Modern Warfare Trilogy', 120, 169.9, 'Prepare-se para uma das melhores sÃ©ries de FPS\'s dos Ãºltimos anos. \r\nEsse pacote inclui todos os jogos da trilogia Modern Warfare.', 2, 'PS3', 'produtos/12687_1_20170211132334.jpg'),
+(20, 'Crysis 3', 89.9, 129.9, 'Famosa por seus incrÃ­veis grÃ¡ficos, a sÃ©rie Crysis chega ao seu terceiro capÃ­tulo com um visual ainda mais impressionante. No entanto, a Crytek decidiu apostar suas fichas em um enredo e mostrar que a franquia Ã© muito mais do que um rostinho bonito.\r\n\r\nO grande destaque do novo jogo estÃ¡ exatamente na ambientaÃ§Ã£o dada, combinando o que hÃ¡ de melhor no cenÃ¡rio de seus antecessores. Com isso, temos uma cidade de Nova York totalmente abandonada e tomada pela vegetaÃ§Ã£o, o que faz com que floresta e Ã¡reas urbanas se tornem uma coisa sÃ³.\r\n\r\nAlÃ©m disso, Crysis 3 serÃ¡ focado na sobrevivÃªncia e em como a caÃ§a pode se tornar o caÃ§ador. Isso porque o personagem principal serÃ¡ o alvo tanto da raÃ§a alienÃ­gena Ceph quanto dos soldados da CELL, que tentarÃ£o prendÃª-lo para obter a icÃ´nica nanosuit.', 3, 'PS3', 'produtos/5503_1_20140209010636.jpg'),
+(21, 'Dead or Alive 5 Ultimate', 59.9, 94.9, 'Os fÃ£s de Dead or Alive irÃ£o Ã  loucura com essa nova versÃ£o do game! A principal novidade de Dead or Alive 5 Ultimate sÃ£o os novos personagens: Ein, Leon, Momiji, Rachel (ambas de Ninja Gaiden) e Jacky Bryant (de Virtua Fighter). AlÃ©m de novos lutadores, tambÃ©m terÃ£o novas fases (ou cenÃ¡rios) para os fÃ£s delirarem!\r\n\r\nNÃ£o Ã© sÃ³ a questÃ£o de personagens ou fases que foi alterada, tambÃ©m foram adicionadas novas mecÃ¢nicas ao jogo, como, por exemplo, o Power Launcher, que faz com que o oponente seja lanÃ§ado bem alto, melhorando a possibilidade de criar um combo para derrotÃ¡-lo. Jogue online e mostre que vocÃª consegue ser o melhor de todos.\r\n', 1, 'PS3', 'produtos/6901_1_20130922040950.jpg'),
+(22, 'Dead Rising 2', 59.9, 79.9, 'VÃ¡rios anos se passaram desde a terrÃ­vel invasÃ£o de zumbis em Wilamette, e essa ediÃ§Ã£o da sÃ©rie troca a aÃ§Ã£o do cotidiano do centro-oeste americano para o glamour da Fortune City, o maior e mais recente local de entretenimento e apostas dos EUA. \r\n\r\nAs pessoas vÃªm do mundo todo para Fortune City para fugir da realidade, com a possibilidade de ganhar muito dinheiro. Chuck Greene, ex-campeÃ£o de motocross, assim como milhÃµes de americanos, estÃ¡ atraÃ­do pelo programa sensaÃ§Ã£o de TV â€œTerror is Realityâ€. \r\n\r\nApresentado pelo exagerado Tyrone King, o show reÃºne pessoas comuns em uma arena cheia de zumbis com um desafio simples: matar mais zumbis que seu adversÃ¡rio e permanecer vivo, sendo que o vencedor ganha uma bolada e a chance de voltar e garantir prÃªmios ainda maiores. \r\n\r\nO que levou Chuck a arriscar sua vida em Fortune City nesta disputa de gladiadores dos dias atuais? SerÃ¡ que ele tem algum motivo para odiar os zumbis ou estÃ¡ na briga sÃ³ por dinheiro?', 2, 'PS3', 'produtos/1653_1.jpg'),
+(23, 'Assassins Creed Rogue', 79.9, 109.9, 'Assassin\'s Creed Rogue se passa durante a Guerra dos Sete Anos, em 1751.\r\n\r\nDesta vez vocÃª nÃ£o jogarÃ¡ com um assassino, mas sim com o lado oposto da histÃ³ria: um templÃ¡rio buscando vinganÃ§a.\r\n\r\nVocÃª estarÃ¡ na pele de Shay Patrick Cormac, um homem que deixou a ordem dos Assassinos apÃ³s uma missÃ£o que deu terrivelmente errado, sendo traÃ­do pelos membros da ordem que chamava de irmÃ£os. Ã‰ entÃ£o que ele se torna um caÃ§ador de assassinos, o mais temido da histÃ³ria.\r\n\r\nA histÃ³ria\r\n\r\nAmÃ©rica do Norte, sÃ©culo XVIII No caos e violÃªncia da Guerra Franco-IndÃ­gena, Shay Patrick Cormac, um jovem destemido e membro da Ordem dos Assassinos, sofre uma sombria transformaÃ§Ã£o que irÃ¡ mudar para sempre o futuro das colÃ´nias. ApÃ³s uma perigosa missÃ£o terminar de maneira trÃ¡gica, Shay abandona os Assassinos que, em resposta, tentam tirar sua vida. Banido por aqueles que um dia chamou de irmÃ£os, Shay inicia uma missÃ£o para destruir todos aqueles que o traÃ­ram e tornar-se, enfim, o mais temido caÃ§ador de Assassinos da histÃ³ria.\r\n\r\nApresentando Assassinâ€™s CreedÂ® Rogue, o capÃ­tulo mais sombrio da franquia Assassinâ€™s CreedÂ® jÃ¡ produzido. No papel de Shay, vocÃª irÃ¡ viver a lenta transformaÃ§Ã£o de Assassino a caÃ§ador de Assassinos. Siga sua prÃ³pria convicÃ§Ã£o e parta para uma jornada extraordinÃ¡ria pela cidade de Nova Iorque, pelo vale do Rio Selvagem, atÃ© as Ã¡guas geladas do AtlÃ¢ntico Norte, em busca do seu objetivo final: destruir os Assassinos.\r\n\r\nViva o universo de Assassinâ€™s Creed pela perspectiva de um TemplÃ¡rio. Jogue como Shay que, alÃ©m de suas habilidades mortais de Mestre Assassino, tambÃ©m possui habilidades e armas nunca vistas antes.\r\n\r\nUse o mortal rifle de pressÃ£o de Shay, tanto para combate em curtas quanto longas distÃ¢ncias. Distraia, elimine ou confunda inimigos usando uma variedade de muniÃ§Ãµes, incluindo granadas especializadas.\r\nProteja-se de Assassinos escondidos com sua VisÃ£o Aquilina aprimorada. Use a VisÃ£o Aquilina para monitorar constantemente os arredores e detecte Assassinos, escondidos nas sombras, nos telhados ou em meio Ã  multidÃ£o.\r\n\r\nTestemunhe a transformaÃ§Ã£o de Shay, de um Assassino aventureiro para um sinistro e fiel TemplÃ¡rio, disposto a eliminar seus antigos aliados. Acompanhe, em primeira mÃ£o, os eventos que levarÃ£o Shay a um caminho sombrio, em circunstÃ¢ncias que mudarÃ£o para sempre o destino da Ordem dos Assassinos.\r\n\r\nEmbarque no seu navio, o Morrigan, e lute em seu curso pelos mares congelantes do AtlÃ¢ntico Norte e pelas Ã¡guas rasas dos vales dos rios da AmÃ©rica do Norte. Assassinâ€™s Creed Rogue acrescenta elementos novos Ã  experiÃªncia naval premiada de Assassinâ€™s CreedÂ® IV Black Flagâ„¢, incluindo:\r\n\r\n- Novas tÃ¡ticas inimigas. Defenda-se de Assassinos que tentam embarcar no seu navio e derrotar sua tripulaÃ§Ã£o. Expulse-os rapidamente para nÃ£o perder muitos membros da tripulaÃ§Ã£o.\r\n\r\n- Novas armas, como Ã³leo inflamÃ¡vel, que deixa um rastro de fogo que queima navios inimigos, e a metralhadora Puckle, capaz de disparar continuamente.\r\n\r\n- Um mundo Ã¡rtico cheio de possibilidades. Quebre camadas de gelo com seu navio para descobrir locais escondidos e use icebergs como cobertura durante batalhas navais.\r\n\r\nA histÃ³ria de Shay permite que vocÃª explore trÃªs ambientes Ãºnicos.\r\n\r\n- Norte do Oceano AtlÃ¢ntico: Experimente os ventos gelados e os enormes icebergs do Ãrtico neste grande parque naval.\r\n\r\n- Vale dos Rios: Um cenÃ¡rio vasto e hÃ­brido da fronteira americana, que mistura rios perfeitos para navegaÃ§Ã£o e exploraÃ§Ã£o em terra firme.\r\n\r\n- Cidade de Nova Iorque: Uma das cidades mais famosas do mundo, totalmente recriada como era no sÃ©culo XVIII.', 4, 'XBOX360', 'produtos/8452_1_20170802204625.jpg'),
+(24, 'Battlefield 4', 69.9, 119.9, 'Battlefield 4 Ã© o enorme sucesso dos jogos de aÃ§Ã£o que definiu um gÃªnero, feito dos momentos que se equilibram entre o jogo e a glÃ³ria. Momentos esses sÃ³ encontrados em Battlefield. Com a ajuda da potÃªncia e fidelidade da prÃ³xima geraÃ§Ã£o do Frostbite 3, o Battlefield 4 proporciona uma experiÃªncia dramÃ¡tica e visceral como nenhuma outra.\r\n\r\nApenas em Battlefield vocÃª irÃ¡ explodir as fundaÃ§Ãµes de uma represa ou reduzir um arranhacÃ©u a escombros. Apenas em Battlefield vocÃª vai liderar um ataque naval na traseira de uma lancha de combate. Battlefield dÃ¡ a vocÃª a liberdade de fazer e ser muito mais enquanto joga com o mÃ¡ximo de intensidade e trilha o seu prÃ³prio caminho para a vitÃ³ria.\r\n\r\nAlÃ©m do seu multiplayer inconfundÃ­vel, Battlefield 4 apresenta uma campanha intensa e dramÃ¡tica focada nos personagens, que tem inÃ­cio com a evacuaÃ§Ã£o de cidadÃ£os norteamericanos importantes de Xangai e acompanha a luta de sua equipe para voltar para casa.\r\n\r\nNÃ£o hÃ¡ comparaÃ§Ãµes. Mergulhe no caos glorioso de uma guerra declarada, sÃ³ encontrada em Battlefield.\r\n\r\n- Requer HD para jogar. ', 2, 'XBOX360', 'produtos/7015_1_20140709002035.jpg');
 
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `carrinho`
+--
+ALTER TABLE `carrinho`
+  ADD PRIMARY KEY (`cod_reserva`);
+
+--
+-- Indexes for table `cliente`
+--
+ALTER TABLE `cliente`
+  ADD PRIMARY KEY (`cod_cliente`);
+
+--
+-- Indexes for table `noticia`
+--
+ALTER TABLE `noticia`
+  ADD PRIMARY KEY (`cod_noticia`);
+
+--
+-- Indexes for table `produtos`
+--
+ALTER TABLE `produtos`
+  ADD PRIMARY KEY (`cod_produto`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `carrinho`
+--
+ALTER TABLE `carrinho`
+  MODIFY `cod_reserva` int(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+--
+-- AUTO_INCREMENT for table `cliente`
+--
+ALTER TABLE `cliente`
+  MODIFY `cod_cliente` int(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+--
+-- AUTO_INCREMENT for table `noticia`
+--
+ALTER TABLE `noticia`
+  MODIFY `cod_noticia` int(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+--
+-- AUTO_INCREMENT for table `produtos`
+--
+ALTER TABLE `produtos`
+  MODIFY `cod_produto` int(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

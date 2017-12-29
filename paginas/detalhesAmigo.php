@@ -1,12 +1,12 @@
 <?php
 
-		// A sessão precisa ser iniciada em cada página diferente
+		// A sessÃ£o precisa ser iniciada em cada pÃ¡gina diferente
 		if (!isset($_SESSION)) session_start();
 
 		$nivel_necessario = 1;
 		$nivel_necessario2 = 2;
 
-		// Verifica se não há a variável da sessão que identifica o usuário
+		// Verifica se nÃ£o hÃ¡ a variÃ¡vel da sessÃ£o que identifica o usuÃ¡rio
 		if (!isset($_SESSION['UsuarioID']) OR ($_SESSION['UsuarioNivel'] == $nivel_necessario2)) 
 		{
 			// Redireciona o visitante para a pagina do ADM
@@ -14,7 +14,7 @@
 		}
 		else if (!isset($_SESSION['UsuarioID']) OR ($_SESSION['UsuarioNivel'] != $nivel_necessario)) 
 		{
-			// Destrói a sessão por segurança
+			// DestrÃ³i a sessÃ£o por seguranÃ§a
 			session_destroy();
 			// Redireciona o visitante de volta pro login
 			header("Location: login.php"); exit;
@@ -25,185 +25,70 @@
 		$codAmigo = $_GET['codAmigo'];	
 		$mysqli = mysqli_connect('localhost', 'root', '', 'tcc');
 		
+		require 'include/header.php';
+		
 		
 		$sqlBuscaCliente = "SELECT * FROM cliente WHERE cod_cliente = '$codAmigo'";
 		$execBuscaCliente = mysqli_query($mysqli, $sqlBuscaCliente);
 		$cliente = mysqli_fetch_array($execBuscaCliente, MYSQLI_BOTH);
 ?>
-	
-	
-
-<html>
-<head>
-	<title> Central Usuário </title>
-	<link rel="stylesheet" type="text/css" href="fundo_tudo.css">
-	<link rel="stylesheet" type="text/css" href="menu_horizontal.css">
-	
-
-	<style type="text/css">
-	
-		.painel{
-			position:absolute;
-			width:500px;
-			left:50%;
-			margin-left: -350px;
-			height:400px;
-			background-color:black;
-			-moz-border-radius:20px;
-			-webkit-border-radius: 20px;
-			top:290px;
-		}
 		
-		.login
-		{
-			position:absolute;
-			width: 270px;
-			height: 120px;
-			background-color: white;
-			-moz-border-radius:20px;
-			-webkit-border-radius: 20px;
-			left:610px;
-			top:50%;
-			margin-top:-60px;
-		}
-		
-	</style>
-	
-	
-	
-</head>
-<body>
-	<body bgcolor="black">
-	<div class="fundo_principal" style="position:absolute;height:900px;">
-		
-		<div class="topo">
-			<div class="login">
-			<?php
-				if(!isset($_SESSION['UsuarioID']))
-				{
-			?>
-				<form name="logar" method="post" action="logar.php">
-				<center><br>
-					Login: <input type="text" name="login" size="20"><br><br>
-					Senha: <input type="password" name="senha" size="20"><br><br>
-					<input type="submit" value="logar">
-				</center>
-				</form>
-			<?php
-				}
-				else
-				{
-			?>
-				<center><br><br>
-				Bem vindo, <? print $_SESSION['UsuarioNome']; ?><br><br>
-				<a href="logout.php">Logout</a><br><br>
-				<a href="alterarInfo.php">Editar Contar</a>
-				</center>
-			<?php
-				}
-			?>
-			</div>
-		</div>
-			
-			
-		<ul id="menu">
-			<li>
-			<a href="index.php?pagina=1" title="Home Page">Página Inicial</a>
-			</li>
-			<li>
-			<a href="centralUsuario.php" title="Área do cliente">Espaço do cliente</a>
-			</li>
-			<li>
-			<a href="form_cadastro.php" title="Cadastre-se">Cadastro</a>
-			</li>
-			<li>
-			<a href="login.php" title="Entrar">Login</a>
-			</li>
-			<li>
-			<a href="dicas.html" title="Dicas para iniciantes">Dicas</a>
-			</li>
-			<li>
-			<a href="produtos.php" title="Produtos para compra"> Produtos </a>
-			</li>
-			<li>
-			<a href="horario.html" title="Horários">Horários de Funcionamento</a>
-			</li>
-			<li>
-			<a href="contato.html" title="Fale conosco">Contato</a>
-			</li>
-		</ul>
-		
-		<center>
+	<center>
 		<font color="black" face="Berlin Sans FB">
-			<br><br><br><br><br><br><br><br><br><br><br><br><br>
 			Bem Vindo, <?php echo $_SESSION['UsuarioNome']; ?>&nbsp;! <br>
-			No painel abaixo existem algumas opções que você como cliente tem acesso.
+			No painel abaixo existem algumas opÃ§Ãµes que vocÃª como cliente tem acesso.
 		</font>
-		</center>
+	</center>
 		
-		<div class="painel" style="width:700px; height:auto;">
-			<font color="white" face="Berlin Sans FB">
-			<center>
-			<br>
-			
-			<fieldset style="-moz-border-radius:20px; -webkit-border-radius: 20px; width:600;">
-				<b>Informações do Usuário</b> <br>
-				<hr><br>
-				<form name="amigo" method="POST" action="addAmigo.php">
-					<div style="width:256px;height:256px;background-color:white;"><img src="<?php print $cliente['foto'];?>" style="width:100%;height:100%;-moz-box-shadow: 0 0 5px 5px white;-webkit-box-shadow: 0 0 5px 5px white;box-shadow: 0 0 5px 5px white;"></div>
-						<table border="0">
-							<tr>
-								<td style="width:200px;">
-									<font color="white"><br>Nome: <?php print $cliente['nome'];?><br><br>
-									Sexo: <?php print $cliente['sexo'];?><br><br></font>
-								</td>
-								<td>
-									<?php print '<a href="paginaMensagens.php?cod_amigo='.$codAmigo.'" style="text-decoration:none;"><font color="white">Mensagens >></font></a>'?><br><br><br>
-								</td>
-							<tr>
-						</table>	
-						<input type="hidden" name="cod_amigo" value="<?php print $codAmigo;?>">
-						
-						
-						<?php 
-							if ($tipo != 2)
-							{
-								?>
-									<input type="submit" value="Adicionar Amigo">
-								<?php
-							}
-						?>
-				</form>
-			</fieldset>
-			<br>
-			<?php 
-				if ($tipo == 2)
-				{
-					print '<a href="paginaAmigos.php?pagina=1"><input type="button" value="Voltar"></a>';
-				}
-				else
-				{
-					print '<a href="procuraAmigos.php?pagina=1"><input type="button" value="Voltar"></a>';
-				}
-			?>
-			<br><br>
-			</center>
-			</font>
-		</div>
-			
-		<div class="rodape">
-			<font color="white" face="Berlin Sans FB"> 
-			<center><b><br><br>
-			<font size="4">
-			Desenvolvido por:<br>
-			-Luis Gustavo Rangel Bicudo Ribeiro<br>
-			-Matheus Nunes<br>
-			-Andre Filipe<br>
-			-Vitor Kanashiro
-			</font>
-			</b></center>
-			</font>
-		</div>
+	<div class="painel_detalhes">
+		<center>
+		<br>
+		
+		<fieldset class="fieldset_style">
+			<b>InformaÃ§Ãµes do UsuÃ¡rio</b> <br>
+			<hr><br>
+			<form name="amigo" method="POST" action="addAmigo.php">
+				<div style="width:256px;height:256px;background-color:white;"><img src="<?php print $cliente['foto'];?>" style="width:100%;height:100%;-moz-box-shadow: 0 0 5px 5px white;-webkit-box-shadow: 0 0 5px 5px white;box-shadow: 0 0 5px 5px white;"></div>
+					<table border="0">
+						<tr>
+							<td style="width:200px;">
+								<font color="white"><br>Nome: <?php print $cliente['nome'];?><br><br>
+								Sexo: <?php print $cliente['sexo'];?><br><br></font>
+							</td>
+							<td>
+								<?php print '<a href="paginaMensagens.php?cod_amigo='.$codAmigo.'" style="text-decoration:none;"><font color="white">Mensagens >></font></a>'?><br><br><br>
+							</td>
+						<tr>
+					</table>	
+					<input type="hidden" name="cod_amigo" value="<?php print $codAmigo;?>">
+					
+					
+					<?php 
+						if ($tipo != 2)
+						{
+							?>
+								<input type="submit" value="Adicionar Amigo">
+							<?php
+						}
+					?>
+			</form>
+		</fieldset>
+		
+		<br>
+		<?php 
+			if ($tipo == 2)
+			{
+				print '<a href="paginaAmigos.php?pagina=1"><input type="button" value="Voltar"></a>';
+			}
+			else
+			{
+				print '<a href="procuraAmigos.php?pagina=1"><input type="button" value="Voltar"></a>';
+			}
+		?>
+		<br><br>
+		</center>
 	</div>
-</body>
-</html>
+			
+<?php
+	require 'include/footer.php';
+?>
